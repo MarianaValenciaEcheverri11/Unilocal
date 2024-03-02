@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.models;
+package co.edu.uniquindio.proyecto.models.documentos;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

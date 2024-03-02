@@ -1,6 +1,6 @@
 package co.edu.uniquindio.proyecto.repository;
 
-import co.edu.uniquindio.proyecto.models.Establecimiento;
+import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,7 @@
-package co.edu.uniquindio.proyecto.models;
+package co.edu.uniquindio.proyecto.models.documentos;
 
+import co.edu.uniquindio.proyecto.models.entidades.Horario;
+import co.edu.uniquindio.proyecto.models.entidades.Ubicacion;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

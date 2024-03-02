@@ -1,4 +1,6 @@
-package co.edu.uniquindio.proyecto.models;
+package co.edu.uniquindio.proyecto.models.documentos;
+
+import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
 
 public class Cuenta {
 

@@ -1,4 +1,6 @@
-package co.edu.uniquindio.proyecto.models;
+package co.edu.uniquindio.proyecto.models.entidades;
+
+import co.edu.uniquindio.proyecto.models.enums.Dia;
 
 import java.time.LocalDateTime;
 

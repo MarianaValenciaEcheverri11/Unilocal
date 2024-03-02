@@ -1,5 +1,8 @@
-package co.edu.uniquindio.proyecto.models;
+package co.edu.uniquindio.proyecto.models.documentos;
 
+import co.edu.uniquindio.proyecto.models.enums.CategoriaEstablecimiento;
+import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
+import co.edu.uniquindio.proyecto.models.enums.Rol;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
