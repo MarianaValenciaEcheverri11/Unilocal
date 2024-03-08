@@ -1,7 +1,13 @@
-package co.edu.uniquindio.proyecto.models.documentos;
+package co.edu.uniquindio.proyecto.models.entidades;
 
 import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
+@NoArgsConstructor
 public class Cuenta {
 
     private String email;
@@ -46,5 +52,25 @@ public class Cuenta {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    @Document("ciudades")
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @ToString
+    @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
+    public static class Ciudad implements Serializable {
+
+        @Id
+        @EqualsAndHashCode.Include
+
+        private String codigo;
+        private String nombre;
+
+
+
+
     }
 }

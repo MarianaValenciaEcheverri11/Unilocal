@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.models.documentos;
 
+import co.edu.uniquindio.proyecto.models.entidades.Cuenta;
 import co.edu.uniquindio.proyecto.models.enums.CategoriaEstablecimiento;
 import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
 import co.edu.uniquindio.proyecto.models.enums.Rol;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 @Document("usuarios")
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
