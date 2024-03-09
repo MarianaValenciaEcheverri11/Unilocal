@@ -5,7 +5,7 @@ import co.edu.uniquindio.proyecto.models.documentos.Usuario;
 
 public interface UsuarioServicio extends CuentaServicio {
 
-    void registrarUsuario(RegistroUsuarioDTO registroUSuarioDTO) throws Exception;
+    String registrarUsuario(RegistroUsuarioDTO registroUSuarioDTO) throws Exception;
     void marcarLugarFavorito(FavoritoDTO favoritoDTO) throws Exception;
     void eliminarLugarFavorito(FavoritoDTO favoritoDTO) throws Exception;
     void listarFavoritos(String codigoCliente) throws Exception;
