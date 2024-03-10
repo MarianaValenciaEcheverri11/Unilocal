@@ -1,5 +1,9 @@
 package co.edu.uniquindio.proyecto.servicios.intefaces;
 
+import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
+
+import java.util.Optional;
+
 public interface EstablecimientoServicio {
 
     void crearEstablecimiento();
@@ -12,5 +16,6 @@ public interface EstablecimientoServicio {
     void listaEstablecimientoPorEstado();
     void listaEstablecimientoPorCategoria();
     void listaEstablecimientoPorUbicacion();
+    Optional<Establecimiento> obtenerLugarDia() throws Exception;
 
 }

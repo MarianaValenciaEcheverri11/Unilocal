@@ -27,7 +27,15 @@ public class Establecimiento implements Serializable {
     private ArrayList<Horario> horarios;
     private String codigoUsuario;
 
-
-
-
+    @Builder
+    public Establecimiento(String codigo, ArrayList<String> imagenes, String descripcion, String nombre, ArrayList<String> telefonos, Ubicacion ubicacion, ArrayList<Horario> horarios, String codigoUsuario) {
+        this.codigo = codigo;
+        this.imagenes = imagenes;
+        this.descripcion = descripcion;
+        this.nombre = nombre;
+        this.telefonos = telefonos;
+        this.ubicacion = ubicacion;
+        this.horarios = horarios;
+        this.codigoUsuario = codigoUsuario;
+    }
 }

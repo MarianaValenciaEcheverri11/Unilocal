@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 public record ActualizacionCuentaDTO(
-        @NotBlank String id,
+        @NotBlank String codigo,
         @NotBlank @Length(max = 100) String nombre,
         @NotBlank String foto,
         @NotBlank @Email String email,

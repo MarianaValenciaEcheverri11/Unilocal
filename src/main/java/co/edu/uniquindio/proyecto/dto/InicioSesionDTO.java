@@ -1,6 +1,9 @@
 package co.edu.uniquindio.proyecto.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public record InicioSesionDTO(
-    String email,
-    String contrasena) {
+        @NotBlank(message = "Email obligatorio") @Email String email,
+        @NotBlank(message = "La contraseña es obligatoria") String contrasena) {
 }

@@ -22,9 +22,18 @@ public class Revision implements Serializable {
 
     private String codigo;
     private String codigoPublicacion;
-
     private String descripcion;
     private EstadoPublicacion estado;
     private LocalDateTime fecha;
     private String codigoModerador;
+
+    @Builder
+    public Revision(String codigo, String codigoPublicacion, String descripcion, EstadoPublicacion estado, LocalDateTime fecha, String codigoModerador) {
+        this.codigo = codigo;
+        this.codigoPublicacion = codigoPublicacion;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.fecha = fecha;
+        this.codigoModerador = codigoModerador;
+    }
 }

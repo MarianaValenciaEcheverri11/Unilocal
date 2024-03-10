@@ -26,4 +26,14 @@ public class Comentario implements Serializable {
     private String resenia;
     private String respuesta;
 
+    @Builder
+
+    public Comentario(String codigo, LocalDateTime fecha, int valoracion, String codigoCliente, String resenia, String respuesta) {
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.valoracion = valoracion;
+        this.codigoCliente = codigoCliente;
+        this.resenia = resenia;
+        this.respuesta = respuesta;
+    }
 }

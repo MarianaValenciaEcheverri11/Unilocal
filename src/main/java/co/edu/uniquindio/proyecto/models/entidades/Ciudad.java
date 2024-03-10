@@ -5,15 +5,8 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
-public class Ciudad implements Serializable {
-
-    @Id
-    @EqualsAndHashCode.Include
+public class Ciudad {
 
     private String codigo;
     private String nombre;
-
-
-
-
 }

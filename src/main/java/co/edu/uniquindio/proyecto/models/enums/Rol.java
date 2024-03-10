@@ -2,6 +2,6 @@ package co.edu.uniquindio.proyecto.models.enums;
 
 public enum Rol {
 
-    CLIENTE,
+    USUARIO,
     MODERADOR
 }
