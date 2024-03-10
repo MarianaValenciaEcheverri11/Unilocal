@@ -18,21 +18,21 @@ public class Comentario implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-
     private String codigo;
     private LocalDateTime fecha;
     private int valoracion;
     private String codigoCliente;
+    private String codigoNegocio;
     private String resenia;
     private String respuesta;
 
     @Builder
-
-    public Comentario(String codigo, LocalDateTime fecha, int valoracion, String codigoCliente, String resenia, String respuesta) {
+    public Comentario(String codigo, LocalDateTime fecha, int valoracion, String codigoCliente, String codigoNegocio,String resenia, String respuesta) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.valoracion = valoracion;
         this.codigoCliente = codigoCliente;
+        this.codigoNegocio = codigoNegocio;
         this.resenia = resenia;
         this.respuesta = respuesta;
     }
