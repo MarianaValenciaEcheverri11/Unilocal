@@ -5,6 +5,8 @@ import lombok.*;
 
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Cuenta {
     private String email;
     private String contrasena;

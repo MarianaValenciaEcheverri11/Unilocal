@@ -4,15 +4,21 @@ import co.edu.uniquindio.proyecto.dto.*;
 import co.edu.uniquindio.proyecto.models.documentos.Cliente;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.models.enums.CategoriaEstablecimiento;
+import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
+import co.edu.uniquindio.proyecto.models.enums.Rol;
 import co.edu.uniquindio.proyecto.repository.ClienteRepo;
 import co.edu.uniquindio.proyecto.servicios.intefaces.ClienteServicio;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ClienteServicioImpl implements ClienteServicio {
 
     private final ClienteRepo clienteRepo;
@@ -37,6 +43,8 @@ public class ClienteServicioImpl implements ClienteServicio {
                 .email(registroClienteDTO.email())
                 .contrasenia(registroClienteDTO.contrasena())
                 .nickName(registroClienteDTO.nickname())
+                .estado(EstadoCuenta.ACTIVA)
+                .rol(Rol.USUARIO)
                 .build();
 
         Cliente clienteRegistrado = clienteRepo.save(cliente);
@@ -47,7 +55,7 @@ public class ClienteServicioImpl implements ClienteServicio {
 
     @Override
     public String marcarLugarFavorito(FavoritoDTO favoritoDTO) throws Exception {
-        Optional<Cliente> clienteRegistrado = obtenerCliente(favoritoDTO.codigoCliente());
+        Optional<Cliente> clienteRegistrado = clienteRepo.findById(favoritoDTO.codigoCliente());
         if (clienteRegistrado.isEmpty()) {
             throw new Exception("El cliente no existe");
         }
@@ -61,7 +69,7 @@ public class ClienteServicioImpl implements ClienteServicio {
 
     @Override
     public String eliminarLugarFavorito(FavoritoDTO favoritoDTO) throws Exception {
-        Optional<Cliente> clienteRegistrado = obtenerCliente(favoritoDTO.codigoCliente());
+        Optional<Cliente> clienteRegistrado = clienteRepo.findById(favoritoDTO.codigoCliente());
         if (clienteRegistrado.isEmpty()) {
             throw new Exception("El cliente no existe");
         }
@@ -78,13 +86,46 @@ public class ClienteServicioImpl implements ClienteServicio {
     }
 
     @Override
-    public Optional<ArrayList<Cliente>> listarClientes() throws Exception {
-        return Optional.of((ArrayList<Cliente>) clienteRepo.findAll());
+    public ArrayList<ItemClienteDTO> listarClientes(int pagina) throws Exception {
+
+        Optional<ArrayList<Cliente>> clientes = clienteRepo.findAllByEstado(EstadoCuenta.ACTIVA);
+
+        ArrayList<ItemClienteDTO> clientesDTO = new ArrayList<>();
+
+        for (Cliente cliente : clientes.get()) {
+
+            if(cliente.getEstado() == EstadoCuenta.ACTIVA){
+            clientesDTO.add(new ItemClienteDTO(
+                    cliente.getCodigo(),
+                    cliente.getNickName(),
+                    cliente.getNombre(),
+                    cliente.getFoto(),
+                    cliente.getCodigoCiudad()));
+            }
+        }
+        return clientesDTO;
     }
 
     @Override
-    public Optional<Cliente> obtenerCliente(String codigo) throws Exception {
-        return clienteRepo.findByCodigo(codigo);
+    public DetalleClienteDTO obtenerCliente(String codigo) throws Exception {
+
+        Optional<Cliente> clienteRegistrado = clienteRepo.findById(codigo);
+
+        if (clienteRegistrado.isEmpty()) {
+            throw new Exception("El cliente no existe");
+        }
+        Cliente cliente = clienteRegistrado.get();
+
+        if (cliente.getEstado() == EstadoCuenta.BLOQUEADA) {
+            throw new Exception("El cliente no existe");
+        }
+
+        return new DetalleClienteDTO(cliente.getCodigo(),
+                                    cliente.getNombre(),
+                                    cliente.getFoto(),
+                                    cliente.getNickName(),
+                                    cliente.getEmail(),
+                                    cliente.getCodigoCiudad());
     }
 
     @Override
@@ -94,7 +135,7 @@ public class ClienteServicioImpl implements ClienteServicio {
 
     @Override
     public String registrarCategoriaBuscadas(RegistroCategoriaBuscadaDTO registroCategoriaBuscadaDTO) throws Exception {
-        Optional<Cliente> clienteRegistrado = obtenerCliente(registroCategoriaBuscadaDTO.codigoCliente());
+        Optional<Cliente> clienteRegistrado = clienteRepo.findById(registroCategoriaBuscadaDTO.codigoCliente());
         if (clienteRegistrado.isEmpty()) {
             throw new Exception("El cliente no existe");
         }
@@ -124,36 +165,62 @@ public class ClienteServicioImpl implements ClienteServicio {
 
     @Override
     public String eliminarCuenta(String idUsuario) throws Exception {
-        Optional<Cliente> cliente = obtenerCliente(idUsuario);
-        if (!cliente.isPresent()) {
-            throw new Exception("El usuario no existe");
+        Optional<Cliente> optionalCliente = clienteRepo.findById(idUsuario);
+        if (optionalCliente.isEmpty()) {
+            throw new Exception("El id del usuario no existe");
         }
-        clienteRepo.delete(cliente.get());
+        Cliente cliente = optionalCliente.get();
+        cliente.setEstado(EstadoCuenta.BLOQUEADA);
+        clienteRepo.save(cliente);
         return null;
     }
 
     @Override
     public String actualizarCuenta(ActualizacionCuentaDTO actualizacionCuentaDTO) throws Exception {
+
         if (!clienteRepo.existsById(actualizacionCuentaDTO.codigo())) {
-            throw new Exception("El usuario no existe");
+            throw new Exception("El id del usuario no existe");
         }
+
         Cliente cliente = Cliente.builder()
                 .nombre(actualizacionCuentaDTO.nombre())
                 .email(actualizacionCuentaDTO.foto())
-                .contrasenia(actualizacionCuentaDTO.ciudadResidencia())
-                .codigo(actualizacionCuentaDTO.codigo())
+                .foto(actualizacionCuentaDTO.foto())
+                .codigoCiudad(actualizacionCuentaDTO.ciudadResidencia())
                 .build();
+
         clienteRepo.save(cliente);
         return cliente.getCodigo();
     }
 
     @Override
     public String enviarLinkRecuperacionContrasena(String email) throws Exception {
+
+        if (!existeEmail(email)) {
+            throw new Exception("El email no existe");
+        }
+        //TODO: Implementar el envio de correo
+        //correoServicio.enviarCorreo("cambio de contraseña - unilocal",
+        // emial,
+        // "para cambiar la contraseña acceda al siguiente link: http://localhost:8080/cambiarContrasena?email="+email);
+        /*
+        * los parametros que se envian deben ser los de recuperacioncontraseñaDTO*/
+
         return null;
     }
 
     @Override
     public String recuperarContrasena(RecuperacionContrasenaDTO recuperacionContrasenaDTO) throws Exception {
-        return null;
+
+        Optional<Cliente> clienteOptional = clienteRepo.findById(recuperacionContrasenaDTO.codigoCliente());
+
+        if (clienteOptional.isEmpty()) {
+            throw new Exception("El cliente no existe");
+        }
+
+        Cliente cliente = clienteOptional.get();
+        cliente.setContrasena(recuperacionContrasenaDTO.contrasenaNueva());
+        clienteRepo.save(cliente);
+        return cliente.getCodigo();
     }
 }
