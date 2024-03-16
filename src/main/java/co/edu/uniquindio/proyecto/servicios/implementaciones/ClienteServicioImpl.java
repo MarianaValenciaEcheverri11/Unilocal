@@ -8,6 +8,7 @@ import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
 import co.edu.uniquindio.proyecto.models.enums.Rol;
 import co.edu.uniquindio.proyecto.repository.ClienteRepo;
 import co.edu.uniquindio.proyecto.servicios.intefaces.ClienteServicio;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ClienteServicioImpl implements ClienteServicio {
 
     private final ClienteRepo clienteRepo;
 
-    public ClienteServicioImpl(ClienteRepo clienteRepo) {
-        this.clienteRepo = clienteRepo;
-    }
 
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {

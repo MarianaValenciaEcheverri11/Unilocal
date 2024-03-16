@@ -1,18 +1,29 @@
 package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.ComentarioDTO;
+import co.edu.uniquindio.proyecto.dto.DetalleClienteDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Comentario;
 import co.edu.uniquindio.proyecto.models.enums.CategoriaEstablecimiento;
 import co.edu.uniquindio.proyecto.repository.ComentarioRepo;
+import co.edu.uniquindio.proyecto.servicios.intefaces.ClienteServicio;
 import co.edu.uniquindio.proyecto.servicios.intefaces.ComentarioServicio;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@Transactional
+@RequiredArgsConstructor
 public class ComentarioServicioImpl implements ComentarioServicio {
 
-    ComentarioRepo comentarioRepo;
+    private final ComentarioRepo comentarioRepo;
+    private final ClienteServicio clienteServicio;
+
+
 
     public String crearComentario(ComentarioDTO comentarioDTO) throws Exception {
         if (comentarioDTO == null) {
@@ -49,13 +60,32 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     }
 
     public Optional<ArrayList<Comentario>> listarComentariosPorPublicacion(String idPublicacion) throws Exception {
-        if (idPublicacion == null) {
-            throw new Exception("El id de la publicación no puede ser nulo");
-        }
+
         Optional<ArrayList<Comentario>> comentarios = comentarioRepo.findByCodigoNegocio(idPublicacion);
+
         if (comentarios.isEmpty()) {
             throw new Exception("No hay comentarios para esta publicación");
         }
+
+        List<ComentarioDTO> respuesta = new  ArrayList<>();
+
+
+        for (Comentario comentario : comentarios.get()) {
+
+        DetalleClienteDTO cliente = clienteServicio.obtenerCliente(comentario.getCodigoCliente());
+
+            respuesta.add(new ComentarioDTO(
+                comentario.getCodigo(),
+                comentario.getFecha(),
+                comentario.getValoracion(),
+                comentario.getRespuesta(),
+                comentario.getResenia(),
+                cliente.nombre(),
+                cliente.foto()
+            ));
+        }
+
+
         return comentarioRepo.findByCodigoNegocio(idPublicacion);
     }
 

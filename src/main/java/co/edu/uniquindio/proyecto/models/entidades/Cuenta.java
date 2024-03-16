@@ -4,7 +4,6 @@ import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
 import lombok.*;
 
 @AllArgsConstructor
-@Builder
 @Getter
 @Setter
 public class Cuenta {

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public record ComentarioDTO(
         @NotBlank(message = "Código obligatorio") String codigoPublicacion,
-        @NotBlank(message = "Fecha obligatoria")  @Length(max = 20) LocalDateTime fecha,
+        @NotBlank(message = "Fecha obligatoria")  @Length(max = 20) String fecha,
         int valoracion,
         @NotBlank(message = "Código del cliente obligatorio") String codigoCliente,
         @NotBlank(message = "Código del establecimiento obligatorio") String codigoEstablecimiento,
