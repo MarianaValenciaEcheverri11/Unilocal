@@ -185,4 +185,14 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     public Optional<Establecimiento> obtenerLugarDia() throws Exception {
         return Optional.empty();
     }
+
+    @Override
+    public float obtenerPromedio(String codigoEstablecimiento) throws Exception {
+        Optional<Establecimiento> optionalEstablecimiento = establecimientoRepo.findById(codigoEstablecimiento);
+        if (optionalEstablecimiento.isEmpty()) {
+            throw new Exception("El establecimiento no existe");
+        }
+
+        return optionalEstablecimiento.get().getPromedio();
+    }
 }

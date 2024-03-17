@@ -23,18 +23,18 @@ public class Cliente extends Cuenta implements Serializable {
     private String codigo;
     private String nombre;
     private String foto;
-    private String codigoCiudad;
+    private String ciudad;
     private ArrayList<String> codigosFavoritos;
     private Rol rol;
     private ArrayList<CategoriaEstablecimiento> historicoCategoriasBuscadas;
 
     @Builder
-    public Cliente(String email, String contrasenia, EstadoCuenta estado, String nickName, String codigo, String nombre, String foto, String codigoCiudad, ArrayList<String> codigosFavoritos, Rol rol, ArrayList<CategoriaEstablecimiento> historicoCategoriasBuscadas) {
+    public Cliente(String email, String contrasenia, EstadoCuenta estado, String nickName, String codigo, String nombre, String foto, String ciudad, ArrayList<String> codigosFavoritos, Rol rol, ArrayList<CategoriaEstablecimiento> historicoCategoriasBuscadas) {
         super(email, contrasenia, estado, nickName);
         this.codigo = codigo;
         this.nombre = nombre;
         this.foto = foto;
-        this.codigoCiudad = codigoCiudad;
+        this.ciudad = ciudad;
         this.codigosFavoritos = codigosFavoritos;
         this.rol = rol;
         this.historicoCategoriasBuscadas = historicoCategoriasBuscadas;

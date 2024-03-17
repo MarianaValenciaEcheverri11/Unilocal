@@ -31,5 +31,5 @@ public interface EstablecimientoServicio {
     void listaEstablecimientoPorCategoria() throws Exception;
     void listaEstablecimientoPorUbicacion() throws Exception;
     Optional<Establecimiento> obtenerLugarDia() throws Exception;
-
+    float obtenerPromedio(String codigoEstablecimiento) throws Exception;
 }

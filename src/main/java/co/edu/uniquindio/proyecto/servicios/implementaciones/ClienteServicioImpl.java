@@ -99,7 +99,7 @@ public class ClienteServicioImpl implements ClienteServicio {
                     cliente.getNickName(),
                     cliente.getNombre(),
                     cliente.getFoto(),
-                    cliente.getCodigoCiudad()));
+                    cliente.getCiudad()));
             }
         }
         return clientesDTO;
@@ -108,7 +108,7 @@ public class ClienteServicioImpl implements ClienteServicio {
     @Override
     public DetalleClienteDTO obtenerCliente(String codigo) throws Exception {
 
-        Optional<Cliente> clienteRegistrado = clienteRepo.findById(codigo);
+        Optional<Cliente> clienteRegistrado = clienteRepo.findByCodigo(codigo);
 
         if (clienteRegistrado.isEmpty()) {
             throw new Exception("El cliente no existe");
@@ -124,7 +124,7 @@ public class ClienteServicioImpl implements ClienteServicio {
                                     cliente.getFoto(),
                                     cliente.getNickName(),
                                     cliente.getEmail(),
-                                    cliente.getCodigoCiudad());
+                                    cliente.getCiudad());
     }
 
     @Override
@@ -185,7 +185,7 @@ public class ClienteServicioImpl implements ClienteServicio {
                 .nombre(actualizacionCuentaDTO.nombre())
                 .email(actualizacionCuentaDTO.foto())
                 .foto(actualizacionCuentaDTO.foto())
-                .codigoCiudad(actualizacionCuentaDTO.ciudadResidencia())
+                .ciudad(actualizacionCuentaDTO.ciudadResidencia())
                 .build();
 
         clienteRepo.save(cliente);
