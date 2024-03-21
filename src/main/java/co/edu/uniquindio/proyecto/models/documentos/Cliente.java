@@ -29,8 +29,8 @@ public class Cliente extends Cuenta implements Serializable {
     private ArrayList<CategoriaEstablecimiento> historicoCategoriasBuscadas;
 
     @Builder
-    public Cliente(String email, String contrasenia, EstadoCuenta estado, String nickName, String codigo, String nombre, String foto, String ciudad, ArrayList<String> codigosFavoritos, Rol rol, ArrayList<CategoriaEstablecimiento> historicoCategoriasBuscadas) {
-        super(email, contrasenia, estado, nickName);
+    public Cliente(String email, String contrasena, EstadoCuenta estado, String nickName, String codigo, String nombre, String foto, String ciudad, ArrayList<String> codigosFavoritos, Rol rol, ArrayList<CategoriaEstablecimiento> historicoCategoriasBuscadas) {
+        super(email, contrasena, estado, nickName);
         this.codigo = codigo;
         this.nombre = nombre;
         this.foto = foto;

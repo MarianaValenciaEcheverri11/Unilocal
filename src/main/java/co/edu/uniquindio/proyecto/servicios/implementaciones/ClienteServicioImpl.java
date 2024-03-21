@@ -40,7 +40,7 @@ public class ClienteServicioImpl implements ClienteServicio {
         Cliente cliente = Cliente.builder()
                 .nombre(registroClienteDTO.nombre())
                 .email(registroClienteDTO.email())
-                .contrasenia(registroClienteDTO.contrasena())
+                .contrasena(registroClienteDTO.contrasena())
                 .nickName(registroClienteDTO.nickname())
                 .estado(EstadoCuenta.ACTIVA)
                 .rol(Rol.USUARIO)
@@ -60,7 +60,13 @@ public class ClienteServicioImpl implements ClienteServicio {
         }
 
         ArrayList<String> favoritos = clienteRegistrado.get().getCodigosFavoritos();
+
+        if(favoritos == null){
+            favoritos = new ArrayList<>();
+        }
+
         favoritos.add(favoritoDTO.codigoPublicacion());
+
         clienteRegistrado.get().setCodigosFavoritos(favoritos);
         clienteRepo.save(clienteRegistrado.get());
         return favoritoDTO.codigoPublicacion();
@@ -80,18 +86,19 @@ public class ClienteServicioImpl implements ClienteServicio {
     }
 
     @Override
-    public Optional<ArrayList<String>> listarFavoritos(String codigoCliente) throws Exception {
-        return clienteRepo.findByCodigosFavoritos(codigoCliente);
+    public ArrayList<String> listarFavoritos(String codigoCliente) throws Exception {
+        Cliente cliente = clienteRepo.findById(codigoCliente).orElseThrow(() -> new Exception("El cliente no existe"));
+
+        return cliente.getCodigosFavoritos();
     }
 
     @Override
     public ArrayList<ItemClienteDTO> listarClientes(int pagina) throws Exception {
 
-        Optional<ArrayList<Cliente>> clientes = clienteRepo.findAllByEstado(EstadoCuenta.ACTIVA);
-
+        List<Cliente> clientes = clienteRepo.findAllByEstado(EstadoCuenta.ACTIVA);
         ArrayList<ItemClienteDTO> clientesDTO = new ArrayList<>();
 
-        for (Cliente cliente : clientes.get()) {
+        for (Cliente cliente : clientes) {
 
             if(cliente.getEstado() == EstadoCuenta.ACTIVA){
             clientesDTO.add(new ItemClienteDTO(
@@ -128,8 +135,9 @@ public class ClienteServicioImpl implements ClienteServicio {
     }
 
     @Override
-    public Optional<ArrayList<CategoriaEstablecimiento>> obtenerHistoricoCategoriasBuscadas(String codigoCliente) throws Exception {
-        return clienteRepo.finByHistoricoCategoriasBuscadas(codigoCliente);
+    public ArrayList<CategoriaEstablecimiento> obtenerHistoricoCategoriasBuscadas(String codigoCliente) throws Exception {
+        Cliente cliente = clienteRepo.findById(codigoCliente).orElseThrow(() -> new Exception("El cliente no existe"));
+        return cliente.getHistoricoCategoriasBuscadas();
     }
 
     @Override
