@@ -28,12 +28,12 @@ public class ClienteServicioTest {
     public void registrarClienteTest() throws Exception {
 
         RegistroClienteDTO registroClienteDTO = new RegistroClienteDTO(
-                "123",
-                "123",
+                "David",
+                "coso.png",
                 "david11111@gmail.com",
                 "david111111",
-                "123",
-                "123"
+                "1234",
+                "Armenia"
                 );
 
         Assertions.assertNotNull(clienteServicio.registrarCliente(registroClienteDTO));
