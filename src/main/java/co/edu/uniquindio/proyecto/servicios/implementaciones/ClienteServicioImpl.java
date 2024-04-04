@@ -8,15 +8,15 @@ import co.edu.uniquindio.proyecto.models.enums.EstadoCuenta;
 import co.edu.uniquindio.proyecto.models.enums.Rol;
 import co.edu.uniquindio.proyecto.repository.ClienteRepo;
 import co.edu.uniquindio.proyecto.servicios.intefaces.ClienteServicio;
+import co.edu.uniquindio.proyecto.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -37,10 +37,13 @@ public class ClienteServicioImpl implements ClienteServicio {
             throw new Exception("El email ya está registrado");
         }
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordEncriptada = passwordEncoder.encode( registroClienteDTO.contrasena());
+
         Cliente cliente = Cliente.builder()
                 .nombre(registroClienteDTO.nombre())
                 .email(registroClienteDTO.email())
-                .contrasena(registroClienteDTO.contrasena())
+                .contrasena(passwordEncriptada)
                 .nickName(registroClienteDTO.nickname())
                 .estado(EstadoCuenta.ACTIVA)
                 .rol(Rol.USUARIO)
@@ -162,12 +165,39 @@ public class ClienteServicioImpl implements ClienteServicio {
     }
 
     @Override
-    public String iniciarSesion(InicioSesionDTO inicioSesionDTO) throws Exception {
-        if(!existeEmail(inicioSesionDTO.email())){
-            throw new Exception("El usuario no existe");
+    public TokenDTO iniciarSesionCliente(InicioSesionDTO inicioSesionDTO) throws Exception {
+        Optional<Cliente> clienteOptional = clienteRepo.findByEmail(inicioSesionDTO.email());
+        if (clienteOptional.isEmpty()) {
+            throw new Exception("El correo no se encuentra registrado");
         }
-        Optional<Cliente> cliente = clienteRepo.findByEmailAndContrasena(inicioSesionDTO.email(), inicioSesionDTO.contrasena());
-        return cliente.get().getCodigo();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Cliente cliente = clienteOptional.get();
+        if( !passwordEncoder.matches(inicioSesionDTO.contrasena(), cliente.getContrasena()) ) {
+            throw new Exception("La contraseña es incorrecta");
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("rol", "MODERADOR");
+        map.put("nombre", cliente.getNombre());
+        map.put("id", cliente.getCodigo());
+        return new TokenDTO(JWTUtils.generarToken(cliente.getEmail(), map));
+    }
+
+    @Override
+    public TokenDTO iniciarSesionModerador(InicioSesionDTO inicioSesionDTO) throws Exception {
+        Optional<Cliente> clienteOptional = clienteRepo.findByEmail(inicioSesionDTO.email());
+        if (clienteOptional.isEmpty()) {
+            throw new Exception("El correo no se encuentra registrado");
+        }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Cliente cliente = clienteOptional.get();
+        if( !passwordEncoder.matches(inicioSesionDTO.contrasena(), cliente.getContrasena()) ) {
+            throw new Exception("La contraseña es incorrecta");
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("rol", "CLIENTE");
+        map.put("nombre", cliente.getNombre());
+        map.put("id", cliente.getCodigo());
+        return new TokenDTO(JWTUtils.generarToken(cliente.getEmail(), map));
     }
 
     @Override
