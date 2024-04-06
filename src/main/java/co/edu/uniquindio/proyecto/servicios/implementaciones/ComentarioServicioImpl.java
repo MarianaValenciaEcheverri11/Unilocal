@@ -23,8 +23,6 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     private final ComentarioRepo comentarioRepo;
     private final ClienteServicio clienteServicio;
 
-
-
     public String crearComentario(ComentarioDTO comentarioDTO) throws Exception {
         if (comentarioDTO == null) {
             throw new Exception("El comentario no puede ser nulo");
@@ -45,23 +43,21 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         return comentario.getCodigo();
     }
 
-    public String responderComentario(ComentarioDTO comentarioDTO) throws Exception {
-        if (comentarioDTO == null) {
-            throw new Exception("El comentario no puede ser nulo");
-        }
-        if (comentarioRepo.findByCodigo(comentarioDTO.codigoPublicacion()).isEmpty()) {
+    public String responderComentario(String idPublicacion, String ComentarioInsertado) throws Exception {
+
+        if (comentarioRepo.findByCodigo(idPublicacion).isEmpty()) {
             throw new Exception("El comentario no existe");
         }
-        Comentario comentario = comentarioRepo.findByCodigo(comentarioDTO.codigoPublicacion()).get();
-        comentario.setRespuesta(comentarioDTO.respuesta());
+        Comentario comentario = comentarioRepo.findByCodigo(idPublicacion).get();
+        comentario.setRespuesta(ComentarioInsertado);
         comentarioRepo.save(comentario);
 
         return comentario.getCodigo();
     }
 
-    public Optional<ArrayList<Comentario>> listarComentariosPorPublicacion(String idPublicacion) throws Exception {
+    public Optional<ArrayList<Comentario>> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception {
 
-        Optional<ArrayList<Comentario>> comentarios = comentarioRepo.findByCodigoNegocio(idPublicacion);
+        Optional<ArrayList<Comentario>> comentarios = comentarioRepo.findByCodigoNegocio(idEstablecimiento);
 
         if (comentarios.isEmpty()) {
             throw new Exception("No hay comentarios para esta publicación");
@@ -73,7 +69,6 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         for (Comentario comentario : comentarios.get()) {
 
         DetalleClienteDTO cliente = clienteServicio.obtenerCliente(comentario.getCodigoCliente());
-
             respuesta.add(new ComentarioDTO(
                 comentario.getCodigo(),
                 comentario.getFecha(),
@@ -86,7 +81,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         }
 
 
-        return comentarioRepo.findByCodigoNegocio(idPublicacion);
+        return comentarioRepo.findByCodigoNegocio(idEstablecimiento);
     }
 
 }
