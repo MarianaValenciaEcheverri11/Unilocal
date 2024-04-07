@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.ComentarioDTO;
 import co.edu.uniquindio.proyecto.dto.DetalleClienteDTO;
+import co.edu.uniquindio.proyecto.dto.ResponderComentarioDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Comentario;
 import co.edu.uniquindio.proyecto.repository.ComentarioRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.ClienteServicio;
@@ -26,9 +27,6 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         if (comentarioDTO == null) {
             throw new Exception("El comentario no puede ser nulo");
         }
-        if (comentarioRepo.findByCodigo(comentarioDTO.codigoPublicacion()).isPresent()) {
-            throw new Exception("El comentario ya existe");
-        }
         Comentario comentario = new Comentario(
                 comentarioDTO.codigoPublicacion(),
                 comentarioDTO.fecha(),
@@ -42,13 +40,13 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         return comentario.getCodigo();
     }
 
-    public String responderComentario(String idPublicacion, String ComentarioInsertado) throws Exception {
+    public String responderComentario(ResponderComentarioDTO responderComentarioDTO) throws Exception {
 
-        if (comentarioRepo.findByCodigo(idPublicacion).isEmpty()) {
+        if (comentarioRepo.findByCodigo(responderComentarioDTO.idPublicacion()) == null) {
             throw new Exception("El comentario no existe");
         }
-        Comentario comentario = comentarioRepo.findByCodigo(idPublicacion).get();
-        comentario.setRespuesta(ComentarioInsertado);
+        Comentario comentario = comentarioRepo.findByCodigo(responderComentarioDTO.idPublicacion());
+        comentario.setRespuesta(responderComentarioDTO.ComentarioInsertado());
         comentarioRepo.save(comentario);
 
         return comentario.getCodigo();
@@ -62,23 +60,20 @@ public class ComentarioServicioImpl implements ComentarioServicio {
             throw new Exception("No hay comentarios para esta publicación");
         }
 
-        List<ComentarioDTO> respuesta = new  ArrayList<>();
-
-
-        for (Comentario comentario : comentarios.get()) {
-
-        DetalleClienteDTO cliente = clienteServicio.obtenerCliente(comentario.getCodigoCliente());
-            respuesta.add(new ComentarioDTO(
-                comentario.getCodigo(),
-                comentario.getFecha(),
-                comentario.getValoracion(),
-                comentario.getRespuesta(),
-                comentario.getResenia(),
-                cliente.nombre(),
-                cliente.foto()
-            ));
-        }
-
+//        List<ComentarioDTO> respuesta = new  ArrayList<>();
+//        for (Comentario comentario : comentarios.get()) {
+//
+//        DetalleClienteDTO cliente = clienteServicio.obtenerCliente(comentario.getCodigoCliente());
+//            respuesta.add(new ComentarioDTO(
+//                comentario.getCodigo(),
+//                comentario.getFecha(),
+//                comentario.getValoracion(),
+//                comentario.getRespuesta(),
+//                comentario.getResenia(),
+//                cliente.nombre(),
+//                cliente.foto()
+//            ));
+//        }
 
         return comentarioRepo.findByCodigoNegocio(idEstablecimiento);
     }

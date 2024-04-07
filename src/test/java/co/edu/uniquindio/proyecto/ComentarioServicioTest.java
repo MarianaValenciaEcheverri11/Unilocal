@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto;
 
 import co.edu.uniquindio.proyecto.dto.ComentarioDTO;
+import co.edu.uniquindio.proyecto.dto.ResponderComentarioDTO;
 import co.edu.uniquindio.proyecto.servicios.interfaces.ComentarioServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ public class ComentarioServicioTest {
 
     @Test
     public void responderComentarioTest() throws Exception {
-        Assertions.assertNotNull(comentarioServicio.responderComentario("123", "Muchas gracias, tambien me encantas :3"));
+        Assertions.assertNotNull(comentarioServicio.responderComentario(new ResponderComentarioDTO("123", "Muchas gracias, tambien me encantas :3")));
     }
 
     @Test

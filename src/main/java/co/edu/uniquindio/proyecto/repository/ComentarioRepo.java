@@ -10,8 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ComentarioRepo extends MongoRepository<Comentario, String> {
 
-    Optional<Comentario> findByCodigo(String codigo);
-    Optional<Comentario> findByCodigoCliente(String codigoCliente);
+    Comentario findByCodigo(String codigo);
     Optional<ArrayList<Comentario>> findByCodigoNegocio(String codigoNegocio);
 
 }
