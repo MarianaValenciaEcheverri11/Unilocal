@@ -1,7 +1,7 @@
 package co.edu.uniquindio.proyecto;
 
 import co.edu.uniquindio.proyecto.dto.ComentarioDTO;
-import co.edu.uniquindio.proyecto.servicios.intefaces.ComentarioServicio;
+import co.edu.uniquindio.proyecto.servicios.interfaces.ComentarioServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,10 @@
 package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
-import co.edu.uniquindio.proyecto.models.documentos.Comentario;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.models.entidades.Horario;
 import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
-import co.edu.uniquindio.proyecto.servicios.intefaces.EstablecimientoServicio;
+import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
 
 import java.util.ArrayList;
 import java.util.Optional;

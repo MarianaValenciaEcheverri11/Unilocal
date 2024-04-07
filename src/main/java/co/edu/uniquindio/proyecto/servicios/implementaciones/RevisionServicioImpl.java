@@ -2,7 +2,7 @@ package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.RevisionDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Revision;
-import co.edu.uniquindio.proyecto.servicios.intefaces.RevisionServicio;
+import co.edu.uniquindio.proyecto.servicios.interfaces.RevisionServicio;
 
 import java.util.Optional;
 

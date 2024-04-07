@@ -10,6 +10,7 @@ public record RegistroClienteDTO(
     @NotBlank(message = "Email obligatorio") @Email String email,
     @NotBlank(message = "Nickname obligatorio") @Length(max = 20) String nickname,
     @NotBlank(message = "Contraseña obligatoria") @Length(max = 10) String contrasena,
+    @NotBlank(message = "cedula obligatoria") @Length(max = 20) String cedula,
     String ciudadResidencia
 ) {
 }

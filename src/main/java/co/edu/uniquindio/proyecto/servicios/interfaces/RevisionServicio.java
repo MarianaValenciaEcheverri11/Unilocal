@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.servicios.intefaces;
+package co.edu.uniquindio.proyecto.servicios.interfaces;
 
 import co.edu.uniquindio.proyecto.dto.RevisionDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Revision;

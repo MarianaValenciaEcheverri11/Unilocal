@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.servicios.intefaces;
+package co.edu.uniquindio.proyecto.servicios.interfaces;
 
 import org.springframework.web.multipart.MultipartFile;
 

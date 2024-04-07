@@ -1,168 +1,52 @@
 package co.edu.uniquindio.proyecto.controladores;
 
-import co.edu.uniquindio.proyecto.servicios.intefaces.ClienteServicio;
+import co.edu.uniquindio.proyecto.dto.*;
+import co.edu.uniquindio.proyecto.servicios.interfaces.ClienteServicio;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/clientes")
 public class ClienteControlador {
 
-
-        private final ClienteServicio clienteServicio;
-
-
-        public void registrarCliente(){
-
+        ClienteServicio clienteServicio;
+        @PostMapping("/registrar-cliente")
+        public ResponseEntity<MensajeDTO<String>> registrarCliente(@Valid @RequestBody RegistroClienteDTO registroClienteDTO) throws Exception {
+                clienteServicio.registrarCliente(registroClienteDTO);
+                return ResponseEntity.ok().body( new MensajeDTO<>(false, "Cliente registrado correctamente")
+                );
         }
 
-        public void actualizarCliente(){
-
+        @PutMapping("/editar-perfil")
+        public ResponseEntity<MensajeDTO<String>> actualizarCliente(@Valid @RequestBody
+                                                                    ActualizacionCuentaDTO actualizarClienteDTO)throws Exception{
+                clienteServicio.actualizarCuenta(actualizarClienteDTO);
+                return ResponseEntity.ok().body( new MensajeDTO<>(false, "Cliente actualizado correctamente") );
         }
 
-        public void eliminarCliente(){
-
+        @DeleteMapping("/eliminar/{codigo}")
+        public ResponseEntity<MensajeDTO<String>> eliminarCuenta(@PathVariable String codigo)throws
+                Exception{
+                clienteServicio.eliminarCuenta(codigo);
+                return ResponseEntity.ok().body( new MensajeDTO<>(false, "Cliente eliminado correctamente")
+                );
         }
 
-        public void listarClientes(){
-
+        @GetMapping("/obtener/{codigo}")
+        public ResponseEntity<MensajeDTO<DetalleClienteDTO>> obtenerCliente(@PathVariable String
+                                                                                    codigo) throws Exception{
+                return ResponseEntity.ok().body( new MensajeDTO<>(false,
+                        clienteServicio.obtenerCliente(codigo) ) );
         }
 
-        public void buscarCliente(){
-
-        }
-
-        public void iniciarSesion(){
-
-        }
-
-        public void cerrarSesion(){
-
-        }
-
-        public void listarProductos(){
-
-        }
-
-        public void listarCategorias(){
-
-        }
-
-        public void listarMarcas(){
-
-        }
-
-        public void listarProductosPorCategoria(){
-
-        }
-
-        public void listarProductosPorMarca(){
-
-        }
-
-        public void listarProductosPorNombre(){
-
-        }
-
-        public void listarProductosPorPrecio(){
-
-        }
-
-        public void listarProductosPorDescuento(){
-
-        }
-
-        public void listarProductosPorCalificacion(){
-
-        }
-
-        public void listarProductosPorVendedor(){
-
-        }
-
-        public void listarProductosPorFecha(){
-
-        }
-
-        public void listarProductosPorEstado(){
-
-        }
-
-        public void listarProductosPorCantidad(){
-
-        }
-
-        public void listarProductosPorCalidad(){
-
-        }
-
-        public void listarProductosPorGarantia(){
-
-        }
-
-        public void listarProductosPorUbicacion(){
-
-        }
-
-        public void listarProductosPorEnvio(){
-
-        }
-
-        public void listarProductosPorDescuentoYEnvio(){
-
-        }
-
-        public void listarProductosPorDescuentoYUbicacion(){
-
-        }
-
-        public void listarProductosPorUbicacionYEnvio(){
-
-        }
-
-        public void listarProductosPorDescuentoUbicacionYEnvio(){
-
-        }
-
-        public void listarProductosPorCalificacionYVendedor(){
-
-        }
-
-        public void listarProductosPorCalificacionYFecha(){
-
-        }
-
-        public void listarProductosPorCalificacionYEstado(){
-
-        }
-
-        public void listarProductosPorCalificacionYCantidad(){
-
-        }
-
-        public void listarProductosPorCalificacionYCalidad(){
-
-        }
-
-        public void listarProductosPorCalificacionYGarantia(){
-
-        }
-
-        public void listarProductosPorCalificacionYUbicacion(){
-
-        }
-
-        public void listarProductosPorCalificacionYEnvio(){
-
-        }
-
-        public void listarProductosPorCalificacionYDescuento(){
-
-        }
-
-        public void listarProductosPorCalificacionYDescuentoYEnvio(){
-
+        @GetMapping("/listar-todos")
+        public ResponseEntity<MensajeDTO<List<ItemClienteDTO>>> listarClientes(int pagina) throws Exception {
+                return ResponseEntity.ok().body( new MensajeDTO<>(false, clienteServicio.listarClientes(pagina))
+                );
         }
 }

@@ -1,6 +1,6 @@
 package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
-import co.edu.uniquindio.proyecto.servicios.intefaces.ImagenesServicio;
+import co.edu.uniquindio.proyecto.servicios.interfaces.ImagenesServicio;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
