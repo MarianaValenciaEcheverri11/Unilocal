@@ -58,14 +58,14 @@ public class RevisionServicioImpl implements RevisionServicio {
     }
 
     @Override
-    public String aprobarRevision() throws Exception {
+    public String aprobarRevision(String estado) throws Exception {
 
             return null;
 
     }
 
     @Override
-    public String rechazarRevision() throws Exception {
+    public String rechazarRevision(String estado) throws Exception {
 
                 return null;
     }

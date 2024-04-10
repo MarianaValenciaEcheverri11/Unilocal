@@ -91,97 +91,70 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     }
 
     @Override
-    public void editarHorario() throws Exception {
+    public void editarHorario(String codigoEstablecimiento) throws Exception {
+
+        Optional<Establecimiento> establecimientoHorario = establecimientoRepo.findById(codigoEstablecimiento);
+
 
     }
 
     @Override
-    public String eliminarHorario() throws Exception {
+    public String eliminarHorario(String codigoEstablecimiento) throws Exception {
         return null;
     }
 
     @Override
-    public void crearCategoria() throws Exception {
+    public void crearCategoria(String categoria) throws Exception {
 
     }
 
     @Override
-    public String editarCategoria() throws Exception {
+    public String editarCategoria(String codigoEstablecimiento) throws Exception {
         return null;
     }
 
     @Override
-    public String eliminarCategoria() throws Exception {
+    public String eliminarCategoria(String codigoEstablecimiento) throws Exception {
         return null;
     }
 
     @Override
-    public void crearTelefono() throws Exception {
+    public void crearTelefono(ArrayList<String> telefonos) throws Exception {
 
     }
 
     @Override
-    public void editarTelefono() throws Exception {
+    public void editarTelefono(String codigoEstablecimiento) throws Exception {
 
     }
 
     @Override
-    public String eliminarTelefono() throws Exception {
+    public String eliminarTelefono(String codigoEstablecimient) throws Exception {
         return null;
     }
 
     @Override
-    public String guardarUbicacion() throws Exception {
+    public String guardarUbicacion(String codigoEstablecimient) throws Exception {
         return null;
     }
 
     @Override
-    public String eliminarEstablecimiento() throws Exception {
+    public String eliminarEstablecimiento(String codigoEstablecimient) throws Exception {
         return null;
     }
 
     @Override
-    public String actualizarEstablecimiento() throws Exception {
+    public String actualizarEstablecimiento(String codigoEstablecimient) throws Exception {
         return null;
     }
 
     @Override
-    public Optional<Establecimiento> listarEstablecimientos() throws Exception {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<Establecimiento> obtenerEstablecimiento() throws Exception {
-        return Optional.empty();
-    }
-
-    @Override
-    public void buscarEstablecimientos() throws Exception {
+    public void buscarEstablecimientos(String codigoEstablecimiento) throws Exception {
 
     }
 
     @Override
-    public void listarEstablecimientosUsuario() throws Exception {
-
-    }
-
-    @Override
-    public void listaEstablecimientoPorEstado() throws Exception {
-
-    }
-
-    @Override
-    public void listaEstablecimientoPorCategoria() throws Exception {
-
-    }
-
-    @Override
-    public void listaEstablecimientoPorUbicacion() throws Exception {
-
-    }
-
-    @Override
-    public Optional<Establecimiento> obtenerLugarDia() throws Exception {
+    public Optional<Establecimiento> obtenerLugarDia(String codigoEstablecimiento) throws Exception {
         return Optional.empty();
     }
 

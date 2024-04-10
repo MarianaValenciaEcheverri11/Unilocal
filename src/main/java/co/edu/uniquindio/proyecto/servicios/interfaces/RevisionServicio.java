@@ -11,7 +11,7 @@ public interface RevisionServicio {
     String enviarRevision(RevisionDTO revisionDTO) throws Exception;
     Optional<Revision> consultarRevisiones(String codigo) throws Exception;
     String mensajeRevision(String mensaje) throws Exception;
-    String aprobarRevision() throws Exception;
-    String rechazarRevision() throws Exception;
+    String aprobarRevision(String estado) throws Exception;
+    String rechazarRevision(String estado) throws Exception;
 
 }
