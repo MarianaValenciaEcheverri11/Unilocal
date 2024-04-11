@@ -5,10 +5,12 @@ import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.models.entidades.Horario;
 import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+@Service
 public class EstablecimientoServicioImpl implements EstablecimientoServicio {
 
     private final EstablecimientoRepo establecimientoRepo;

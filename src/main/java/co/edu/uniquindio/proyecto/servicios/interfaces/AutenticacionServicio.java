@@ -4,5 +4,5 @@ import co.edu.uniquindio.proyecto.dto.InicioSesionDTO;
 import co.edu.uniquindio.proyecto.dto.TokenDTO;
 
 public interface AutenticacionServicio {
-    TokenDTO iniciarSesionCliente(InicioSesionDTO loginDTO);
+    TokenDTO iniciarSesionCliente(InicioSesionDTO loginDTO) throws Exception;;
 }

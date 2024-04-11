@@ -25,6 +25,7 @@ public class ClienteServicioImpl implements ClienteServicio {
     private final ClienteRepo clienteRepo;
     private final EmailServicio emailServicio;
     private final ImagenesServicio imagenesServicio;
+    private final JWTUtils jwtUtils;
 
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {
@@ -180,7 +181,7 @@ public class ClienteServicioImpl implements ClienteServicio {
         map.put("rol", "CLIENTE");
         map.put("nombre", cliente.getNombre());
         map.put("id", cliente.getCodigo());
-        return new TokenDTO(JWTUtils.generarToken(cliente.getEmail(), map));
+        return new TokenDTO(jwtUtils.generarToken(cliente.getEmail(), map));
     }
 
     @Override
@@ -198,7 +199,7 @@ public class ClienteServicioImpl implements ClienteServicio {
         map.put("rol", "MODERADOR");
         map.put("nombre", cliente.getNombre());
         map.put("id", cliente.getCodigo());
-        return new TokenDTO(JWTUtils.generarToken(cliente.getEmail(), map));
+        return new TokenDTO(jwtUtils.generarToken(cliente.getEmail(), map));
     }
 
     @Override
@@ -219,15 +220,13 @@ public class ClienteServicioImpl implements ClienteServicio {
         if (optionalCliente.isEmpty()) {
             throw new Exception("El código del usuario no existe");
         }
-        Cliente cliente = Cliente.builder()
-                .nombre(actualizacionCuentaDTO.nombre())
-                .email(actualizacionCuentaDTO.foto())
-                .foto(actualizacionCuentaDTO.foto())
-                .ciudad(actualizacionCuentaDTO.ciudadResidencia())
-                .build();
-
-        clienteRepo.save(cliente);
-        return cliente.getCodigo();
+        optionalCliente.get().setEmail(actualizacionCuentaDTO.email());
+        optionalCliente.get().setCiudad(actualizacionCuentaDTO.ciudadResidencia());
+        optionalCliente.get().setNombre(actualizacionCuentaDTO.nombre());
+        optionalCliente.get().setFoto(actualizacionCuentaDTO.foto());
+        optionalCliente.get().setCodigo(actualizacionCuentaDTO.codigo());
+        clienteRepo.save(optionalCliente.get());
+        return optionalCliente.get().getCodigo();
     }
 
     @Override

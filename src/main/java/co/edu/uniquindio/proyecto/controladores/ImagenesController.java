@@ -12,7 +12,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/imagenes")
-@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class ImagenesController {
     private final ImagenesServicio imagenesServicio;
@@ -24,9 +23,9 @@ public class ImagenesController {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, respuesta ));
     }
     @DeleteMapping("/eliminar")
-    public ResponseEntity<MensajeDTO<Map>> eliminar(@RequestBody ImagenDTO imagenDTO) throws
+    public ResponseEntity<MensajeDTO<Map>> eliminar(@RequestParam("codigo") String codigo) throws
             Exception {
-        Map respuesta = imagenesServicio.eliminarImagen(imagenDTO.codigo());
+        Map respuesta = imagenesServicio.eliminarImagen(codigo);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, respuesta));
     }
 

@@ -22,6 +22,6 @@ public interface ClienteRepo extends MongoRepository<Cliente, String> {
     Optional<Cliente> findByCodigo(String codigo);
     @Query("{ 'email' : ?0, 'contrasena' : ?1 }")
     Optional<Cliente> findByEmailAndContrasena(String email, String contrasena);
-    @Query("{ 'estado' : { $match : ?0 } }")
+    @Query("{ 'estado' : ?0  }")
     List<Cliente> findAllByEstado(EstadoCuenta estado);
 }

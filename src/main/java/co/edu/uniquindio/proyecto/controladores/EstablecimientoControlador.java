@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/establecimiento")
 public class EstablecimientoControlador {
 
-    EstablecimientoServicio establecimientoServicio;
+    private final EstablecimientoServicio establecimientoServicio;
 
     @PostMapping("/registrar-establecimiento")
     public ResponseEntity<MensajeDTO<String>> registrarCliente(@Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {

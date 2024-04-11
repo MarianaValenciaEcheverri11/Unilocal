@@ -19,6 +19,7 @@ import java.io.IOException;
 public class FiltroToken extends OncePerRequestFilter {
     private final JWTUtils jwtUtils;
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
@@ -38,6 +39,9 @@ public class FiltroToken extends OncePerRequestFilter {
 //Si la petición es para la ruta /api/clientes se verifica que el token sea  correcto y que el rol sea CLIENTE
 
                 if (requestURI.startsWith("/api/clientes")) {
+
+                    System.out.println(token);
+
                     if (token != null) {
                         Jws<Claims> jws = jwtUtils.parseJwt(token);
                         if (!jws.getPayload().get("rol").equals("CLIENTE")) {

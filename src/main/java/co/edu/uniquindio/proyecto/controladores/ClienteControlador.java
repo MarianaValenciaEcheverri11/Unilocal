@@ -12,16 +12,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping("api/clientes")
 public class ClienteControlador {
 
-        ClienteServicio clienteServicio;
-        @PostMapping("/registrar-cliente")
-        public ResponseEntity<MensajeDTO<String>> registrarCliente(@Valid @RequestBody RegistroClienteDTO registroClienteDTO) throws Exception {
-                clienteServicio.registrarCliente(registroClienteDTO);
-                return ResponseEntity.ok().body( new MensajeDTO<>(false, "Cliente registrado correctamente")
-                );
-        }
+        private final ClienteServicio clienteServicio;
+
 
         @PutMapping("/editar-perfil")
         public ResponseEntity<MensajeDTO<String>> actualizarCliente(@Valid @RequestBody
