@@ -18,10 +18,17 @@ public class EstablecimientoControlador {
     private final EstablecimientoServicio establecimientoServicio;
 
     @PostMapping("/registrar-establecimiento")
-    public ResponseEntity<MensajeDTO<String>> registrarCliente(@Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {
+    public ResponseEntity<MensajeDTO<String>> crearEstablecimiento(@Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {
         establecimientoServicio.crearEstablecimiento(establecimientoDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento creado correctamente")
         );
     }
+
+//    obtener establecimiento por id
+    @GetMapping("/{id}")
+    public ResponseEntity<EstablecimientoDTO> obtenerEstablecimiento(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.obtenerEstablecimiento(id));
+    }
+
 
 }

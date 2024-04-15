@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface EstablecimientoServicio {
 
     String crearEstablecimiento(EstablecimientoDTO establecimientoDTO) throws Exception;
+
+    EstablecimientoDTO obtenerEstablecimiento(String codigoEstablecimiento) throws Exception;
     String cargarImagenes(ArrayList<String> imagenes, String codigo) throws Exception;
     String crearHorario(ArrayList<Horario> horarios, String codigo) throws Exception;
     void editarHorario(String codigoEstablecimiento) throws Exception;

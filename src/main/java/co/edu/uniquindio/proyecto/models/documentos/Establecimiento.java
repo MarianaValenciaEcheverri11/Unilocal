@@ -15,7 +15,9 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 public class Establecimiento implements Serializable {
+
     @Id
     @EqualsAndHashCode.Include
     private String codigo;

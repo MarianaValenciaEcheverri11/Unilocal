@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public record EstablecimientoDTO(
         @NotBlank(message = "codigo obligatorio") String codigo,
-        ArrayList<String>imagenes,
+        ArrayList<String> imagenes,
         @NotBlank(message = "descripcion obligatorio") @Length(max = 20) String descripcion,
         @NotBlank(message = "nombre obligatorio") @Length(max = 20) String nombre,
-        @NotBlank(message = "telefonos obligatorio") @Length(max = 20) ArrayList<String> telefonos,
-        @NotBlank(message = "ubicacion obligatorio") @Length(max = 20) Ubicacion ubicacion,
-        @NotBlank(message = "horarios obligatorio") @Length(max = 20) ArrayList<Horario> horarios,
+        ArrayList<String> telefonos,
+        Ubicacion ubicacion,
+        ArrayList<Horario> horarios,
         @NotBlank(message = "codigo usuarios obligatorio")@Length(max = 20) String codigoUsuario
 ) {
 }

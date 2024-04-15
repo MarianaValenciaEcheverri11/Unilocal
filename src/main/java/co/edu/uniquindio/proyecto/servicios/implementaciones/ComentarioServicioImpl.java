@@ -1,18 +1,21 @@
 package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.ComentarioDTO;
-import co.edu.uniquindio.proyecto.dto.DetalleClienteDTO;
+import co.edu.uniquindio.proyecto.dto.EmailDTO;
 import co.edu.uniquindio.proyecto.dto.ResponderComentarioDTO;
+import co.edu.uniquindio.proyecto.models.documentos.Cliente;
 import co.edu.uniquindio.proyecto.models.documentos.Comentario;
+import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
+import co.edu.uniquindio.proyecto.repository.ClienteRepo;
 import co.edu.uniquindio.proyecto.repository.ComentarioRepo;
-import co.edu.uniquindio.proyecto.servicios.interfaces.ClienteServicio;
+import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.ComentarioServicio;
+import co.edu.uniquindio.proyecto.servicios.interfaces.EmailServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +24,9 @@ import java.util.Optional;
 public class ComentarioServicioImpl implements ComentarioServicio {
 
     private final ComentarioRepo comentarioRepo;
-    private final ClienteServicio clienteServicio;
+    private final ClienteRepo clienteRepo;
+    private final EstablecimientoRepo establecimientoRepo;
+    private final EmailServicio emailServicio;
 
     public String crearComentario(ComentarioDTO comentarioDTO) throws Exception {
         if (comentarioDTO == null) {
@@ -37,6 +42,21 @@ public class ComentarioServicioImpl implements ComentarioServicio {
                 comentarioDTO.respuesta());
         comentarioRepo.save(comentario);
 
+        Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(comentarioDTO.codigoEstablecimiento());
+        Optional<Cliente> cliente = clienteRepo.findByCodigo(establecimiento.get().getCodigoUsuario());
+
+        EmailDTO emailDTO = new EmailDTO(
+                cliente.get().getEmail(),
+                "Nuevo comentario",
+                "Se ha realizado un nuevo comentario en su establecimiento \n" +
+                        "Fecha: " + comentarioDTO.fecha() + "\n" +
+                        "Valoración: " + comentarioDTO.valoracion() + "\n" +
+                        "Reseña: " + comentarioDTO.resenia() + "\n" +
+                        "Gracias por usar nuestra plataforma."
+        );
+
+        emailServicio.enviarEmail(emailDTO);
+
         return comentario.getCodigo();
     }
 
@@ -49,6 +69,20 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         comentario.setRespuesta(responderComentarioDTO.ComentarioInsertado());
         comentarioRepo.save(comentario);
 
+        Optional<Cliente> cliente = clienteRepo.findByCodigo(comentario.getCodigoCliente());
+        EmailDTO emailDTO = new EmailDTO(
+                cliente.get().getEmail(),
+                "Respuesta a su comentario",
+                "Se ha respondido a su comentario \n" +
+                        "Fecha: " + comentario.getFecha() + "\n" +
+                        "Valoración: " + comentario.getValoracion() + "\n" +
+                        "Reseña: " + comentario.getResenia() + "\n" +
+                        "Respuesta: " + comentario.getRespuesta() + "\n" +
+                        "Gracias por usar nuestra plataforma."
+        );
+
+        emailServicio.enviarEmail(emailDTO);
+
         return comentario.getCodigo();
     }
 
@@ -59,21 +93,6 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         if (comentarios.isEmpty()) {
             throw new Exception("No hay comentarios para esta publicación");
         }
-
-//        List<ComentarioDTO> respuesta = new  ArrayList<>();
-//        for (Comentario comentario : comentarios.get()) {
-//
-//        DetalleClienteDTO cliente = clienteServicio.obtenerCliente(comentario.getCodigoCliente());
-//            respuesta.add(new ComentarioDTO(
-//                comentario.getCodigo(),
-//                comentario.getFecha(),
-//                comentario.getValoracion(),
-//                comentario.getRespuesta(),
-//                comentario.getResenia(),
-//                cliente.nombre(),
-//                cliente.foto()
-//            ));
-//        }
 
         return comentarioRepo.findByCodigoNegocio(idEstablecimiento);
     }

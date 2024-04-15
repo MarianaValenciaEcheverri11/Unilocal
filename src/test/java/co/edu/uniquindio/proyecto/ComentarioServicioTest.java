@@ -20,7 +20,7 @@ public class ComentarioServicioTest {
                 "123",
                 "2021-10-10",
                 5,
-                "C2",
+                "string",
                 "12",
                 "Hola, me encanta este lugar",
                 ""

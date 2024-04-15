@@ -30,7 +30,7 @@
 Command Line: -Djava.rmi.server.hostname=127.0.0.1 -Duser.timezone=UTC -Xmx2048m -Xms128m -Djdbc.classpath=C:\Program Files\JetBrains\IntelliJ IDEA 2023.3.6\plugins\DatabaseTools\lib\jdbc-console.jar;C:\Users\andre\AppData\Roaming\JetBrains\IntelliJIdea2023.3\jdbc-drivers\MongoDB\1.18\mongo-jdbc-standalone-1.18.jar --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=jdk.unsupported/sun.misc=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED -Dfile.encoding=UTF-8 com.intellij.database.remote.RemoteJdbcServer com.dbschema.MongoJdbcDriver
 
 Host: AMD Ryzen 5 2500U with Radeon Vega Mobile Gfx  , 8 cores, 3G,  Windows 10 , 64 bit Build 19041 (10.0.19041.3636)
-Time: Wed Apr  3 18:45:26 2024 Hora est. Pacífico, Sudamérica elapsed time: 14.423668 seconds (0d 0h 0m 14s)
+Time: Wed Apr  3 18:45:26 2024 Hora est. Pacï¿½fico, Sudamï¿½rica elapsed time: 14.423668 seconds (0d 0h 0m 14s)
 
 ---------------  T H R E A D  ---------------
 

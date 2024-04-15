@@ -5,19 +5,19 @@ import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.models.entidades.Horario;
 import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class EstablecimientoServicioImpl implements EstablecimientoServicio {
 
     private final EstablecimientoRepo establecimientoRepo;
-
-    public EstablecimientoServicioImpl(EstablecimientoRepo establecimientoRepo) {
-        this.establecimientoRepo = establecimientoRepo;
-    }
 
     @Override
     public String crearEstablecimiento(EstablecimientoDTO establecimientoDTO) throws Exception {
@@ -25,12 +25,12 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
         if (establecimientoDTO == null) {
             throw new Exception("El establecimiento no puede ser nulo");
         }
-        if (establecimientoRepo.findById(establecimientoDTO.codigo()).isPresent()) {
+
+        if (establecimientoRepo.findByCodigo(establecimientoDTO.codigo()).isPresent()) {
             throw new Exception("El establecimiento ya existe");
         }
 
-
-        Establecimiento establecimiento =        Establecimiento.builder()
+        Establecimiento establecimiento = Establecimiento.builder()
                 .codigo(establecimientoDTO.codigo())
                 .imagenes(establecimientoDTO.imagenes())
                 .descripcion(establecimientoDTO.descripcion())
@@ -41,10 +41,31 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
                 .codigoUsuario(establecimientoDTO.codigoUsuario())
                 .build();
 
-        Establecimiento establecimientoRegistrado = establecimientoRepo.save(establecimiento);
+        establecimientoRepo.save(establecimiento);
 
         return establecimiento.getCodigo();
     }
+
+    @Override
+    public EstablecimientoDTO obtenerEstablecimiento(String codigoEstablecimiento) throws Exception {
+
+        System.err.println(establecimientoRepo.findByCodigo(codigoEstablecimiento));
+
+        Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(codigoEstablecimiento);
+
+        return establecimiento.map(value -> new EstablecimientoDTO(
+                value.getCodigo(),
+                value.getImagenes(),
+                value.getDescripcion(),
+                value.getNombre(),
+                value.getTelefonos(),
+                value.getUbicacion(),
+                value.getHorarios(),
+                value.getCodigoUsuario()
+        )).orElse(null);
+
+    }
+
 
     @Override
     public String cargarImagenes(ArrayList<String>imagenes, String codigo) throws Exception {
@@ -96,7 +117,6 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     public void editarHorario(String codigoEstablecimiento) throws Exception {
 
         Optional<Establecimiento> establecimientoHorario = establecimientoRepo.findById(codigoEstablecimiento);
-
 
     }
 
