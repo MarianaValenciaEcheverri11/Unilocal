@@ -24,11 +24,23 @@ public class EstablecimientoControlador {
         );
     }
 
-//    obtener establecimiento por id
     @GetMapping("/{id}")
     public ResponseEntity<EstablecimientoDTO> obtenerEstablecimiento(@PathVariable String id) throws Exception {
         return ResponseEntity.ok().body(establecimientoServicio.obtenerEstablecimiento(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MensajeDTO<String>> eliminarEstablecimiento(@PathVariable String id) throws Exception {
+        establecimientoServicio.eliminarEstablecimiento(id);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento eliminado correctamente")
+        );
+    }
+
+//    @PutMapping("/actualizar-establecimiento/{id}")
+//    public ResponseEntity<MensajeDTO<String>> actualizarEstablecimiento(@Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {
+//        establecimientoServicio.actualizarEstablecimiento(id, establecimientoDTO);
+//        return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento actualizado correctamente")
+//        );
+//    }
 
 }

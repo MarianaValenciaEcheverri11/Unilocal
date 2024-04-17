@@ -88,13 +88,40 @@ public class ComentarioServicioImpl implements ComentarioServicio {
 
     public Optional<ArrayList<Comentario>> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception {
 
-        Optional<ArrayList<Comentario>> comentarios = comentarioRepo.findByCodigoNegocio(idEstablecimiento);
+        Optional<ArrayList<Comentario>> comentarios = comentarioRepo.findByCodigoEstablecimiento(idEstablecimiento);
 
         if (comentarios.isEmpty()) {
             throw new Exception("No hay comentarios para esta publicación");
         }
 
-        return comentarioRepo.findByCodigoNegocio(idEstablecimiento);
+        return comentarioRepo.findByCodigoEstablecimiento(idEstablecimiento);
+    }
+
+    @Override
+    public String eliminarComentario(String idComentario) throws Exception {
+        if (comentarioRepo.findByCodigo(idComentario) == null) {
+            throw new Exception("El comentario no existe");
+        }
+        Optional<Comentario> comentario = comentarioRepo.deleteByCodigo(idComentario);
+
+        return "Comentario con id: " + comentario.get().getCodigo() + " eliminado";
+
+    }
+
+    @Override
+    public void actualizarComentario(ComentarioDTO comentarioDTO) throws Exception {
+
+        if (comentarioRepo.findByCodigo(comentarioDTO.codigoPublicacion()) == null) {
+            throw new Exception("El comentario no existe");
+        }
+
+        Comentario comentario = comentarioRepo.findByCodigo(comentarioDTO.codigoPublicacion());
+
+        comentario.setRespuesta(comentarioDTO.respuesta());
+        comentario.setValoracion(comentarioDTO.valoracion());
+        comentario.setResenia(comentarioDTO.resenia());
+        comentarioRepo.save(comentario);
+
     }
 
 }

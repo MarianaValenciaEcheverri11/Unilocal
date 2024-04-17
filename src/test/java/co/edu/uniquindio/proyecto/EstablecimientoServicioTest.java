@@ -26,6 +26,7 @@ public class EstablecimientoServicioTest {
                 null,
                 null,
                 null,
+                "string",
                 "string"
         );
 
@@ -37,6 +38,15 @@ public class EstablecimientoServicioTest {
     public void obtenerEstablecimientoTest() throws Exception {
 
         Assertions.assertNotNull(establecimientoServicio.obtenerEstablecimiento("12"));
+
+    }
+
+    @Test
+    public void eliminarEstablecimientoTest() throws Exception {
+
+        establecimientoServicio.eliminarEstablecimiento("12");
+
+        Assertions.assertTrue(establecimientoServicio.obtenerEstablecimiento("12") == null);
 
     }
 

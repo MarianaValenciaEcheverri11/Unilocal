@@ -29,9 +29,10 @@ public class Establecimiento implements Serializable {
     private ArrayList<Horario> horarios;
     private String codigoUsuario;
     private float promedio;
+    private String categoria;
 
     @Builder
-    public Establecimiento(String codigo, ArrayList<String> imagenes, String descripcion, String nombre, ArrayList<String> telefonos, Ubicacion ubicacion, ArrayList<Horario> horarios, String codigoUsuario, float promedio) {
+    public Establecimiento(String codigo, ArrayList<String> imagenes, String descripcion, String nombre, ArrayList<String> telefonos, Ubicacion ubicacion, ArrayList<Horario> horarios, String codigoUsuario, float promedio, String categoria) {
         this.codigo = codigo;
         this.imagenes = imagenes;
         this.descripcion = descripcion;
@@ -41,5 +42,6 @@ public class Establecimiento implements Serializable {
         this.horarios = horarios;
         this.codigoUsuario = codigoUsuario;
         this.promedio = promedio;
+        this.categoria = categoria;
     }
 }

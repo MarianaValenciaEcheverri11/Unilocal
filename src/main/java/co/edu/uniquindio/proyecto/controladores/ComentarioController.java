@@ -43,4 +43,18 @@ public class ComentarioController {
         );
     }
 
+    @DeleteMapping("/eliminar-comentario/{idComentario}")
+    public ResponseEntity<MensajeDTO<String>> eliminarComentario(@PathVariable String idComentario) throws Exception {
+        comentarioServicio.eliminarComentario(idComentario);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Comentario eliminado correctamente")
+        );
+    }
+
+    @PutMapping("/actualizar-comentario")
+    public ResponseEntity<MensajeDTO<String>> actualizarComentario(@Valid @RequestBody ComentarioDTO comentarioDTO) throws Exception {
+        comentarioServicio.actualizarComentario(comentarioDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Comentario actualizado correctamente")
+        );
+    }
+
 }

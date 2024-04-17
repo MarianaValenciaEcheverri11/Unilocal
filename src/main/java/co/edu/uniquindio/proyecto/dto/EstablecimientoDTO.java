@@ -15,6 +15,7 @@ public record EstablecimientoDTO(
         ArrayList<String> telefonos,
         Ubicacion ubicacion,
         ArrayList<Horario> horarios,
-        @NotBlank(message = "codigo usuarios obligatorio")@Length(max = 20) String codigoUsuario
+        @NotBlank(message = "codigo usuarios obligatorio")@Length(max = 20) String codigoUsuario,
+        @NotBlank(message = "categoria obligatorio") @Length(max = 20) String categoria
 ) {
 }

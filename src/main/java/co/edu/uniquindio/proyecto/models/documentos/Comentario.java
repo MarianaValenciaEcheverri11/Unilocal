@@ -22,17 +22,17 @@ public class Comentario implements Serializable {
     private String fecha;
     private int valoracion;
     private String codigoCliente;
-    private String codigoNegocio;
+    private String codigoEstablecimiento;
     private String resenia;
     private String respuesta;
 
     @Builder
-    public Comentario(String codigo, String fecha, int valoracion, String codigoCliente, String codigoNegocio,String resenia, String respuesta) {
+    public Comentario(String codigo, String fecha, int valoracion, String codigoCliente, String codigoEstablecimiento,String resenia, String respuesta) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.valoracion = valoracion;
         this.codigoCliente = codigoCliente;
-        this.codigoNegocio = codigoNegocio;
+        this.codigoEstablecimiento = codigoEstablecimiento;
         this.resenia = resenia;
         this.respuesta = respuesta;
     }

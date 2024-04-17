@@ -3,6 +3,7 @@ db = connect('mongodb://root:example@localhost:27017/proyecto-test?authSource=ad
 
 db.clientes.insertMany([
     {
+<<<<<<< Updated upstream
         _id: "C10",
         nombre: 'Juan',
         email: 'david@gmail.com',
@@ -118,43 +119,37 @@ db.clientes.insertMany([
             'RESTAURANTE',
             'RESTAURANTE'
         ],
+=======
+        _id: "C1",
+        ciudad: "Pereira",
+        codigoFavorito: ["12", "13"],
+        email: "andreciito38@gmail.com",
+        foto: "http://res.cloudinary.com/duykwcgkw/image/upload/v1713369817/unilocal/wk8cvjxkwkn68xnydidj.jpg",
+        rol: "CLIENTE",
+        contrasena: "$2a$10$vwiSf/XinZWFFGpR6POwv.fg.EVur5ykQqr8o.QBX1Y9/kdKKT2VO",
+        estado: "ACTIVO",
+        historicoCategoriasBuscadas: ["Panaderia", "Mecanica"],
+        nickName: "Resalec",
+        nombre: "Andres",
+>>>>>>> Stashed changes
     }
 ])
 
 db.comentarios.insertMany([
     {
-        codigo: '12',
-        fecha: '12/12/12',
-        valoracion: 4,
-        codigoCliente: 'C1',
-        codigoNegocio: '12',
-        resenia: 'El negocio el lindo y agradable pero la comida no es tan buena',
-        respuesta: 'Gracias por tu comentario, lo tendremos en cuenta para mejorar'
-    },
-    {
-        codigo: '13',
-        fecha: '12/12/12',
-        valoracion: 4,
-        codigoCliente: 'C1',
-        codigoNegocio: '12',
-        resenia: 'El negocio el lindo y agradable pero la comida no es tan buena',
-        respuesta: 'Gracias por tu comentario, lo tendremos en cuenta para mejorar'
-    },
-    {
-        codigo: '14',
-        fecha: '12/12/12',
-        valoracion: 4,
-        codigoCliente: 'C1',
-        codigoNegocio: '12',
-        resenia: 'El negocio el lindo y agradable pero la comida no es tan buena',
-        respuesta: 'Gracias por tu comentario, lo tendremos en cuenta para mejorar'
+        _id: "com1",
+        fecha: "12/12/12",
+        valoracion: 5,
+        codigoCliente: "C1",
+        codigoEstablecimiento: "E1",
+        resenia: "La mejor panaderia de la ciudad",
+        respuesta: ""
     }
-
 ])
 
 db.establecimientos.insertMany([
     {
-        codigo: '12',
+        _id: 'E1',
         imagenes: [
             'imagen1',
             'imagen2',
@@ -167,8 +162,8 @@ db.establecimientos.insertMany([
             '1123123'
         ],
         ubicacion: {
-            latitud: 12414,
-            longitud: 12414
+            latitud: 12414.0,
+            longitud: 12414.0
         },
         horarios: [
             {
@@ -183,38 +178,7 @@ db.establecimientos.insertMany([
             }
         ],
         codigoUsuario: 'C1',
-        promedio: 12.34
-    },
-    {
-        codigo: '13',
-        imagenes: [
-            'imagen1',
-            'imagen2',
-            'imagen3'
-        ],
-        descripcion: 'industria auto motrizx',
-        nombre: 'carritos del mocho',
-        telefonos: [
-            '1123123'
-        ],
-        ubicacion: {
-            latitud: 12414,
-            longitud: 12414
-        },
-        horarios: [
-            {
-                horaApertura: '8:00',
-                horaCierre: '18:00',
-                dia: 'Lunes'
-            },
-            {
-                horaApertura: '8:00',
-                horaCierre: '18:00',
-                dia: 'Martes'
-            }
-        ],
-        codigoUsuario: 'C1',
-        promedio: 12.34
+        categoria: "Panaderia"
     }
 ])
 

@@ -11,4 +11,6 @@ public interface EstablecimientoRepo extends MongoRepository<Establecimiento, St
 
     Optional<Establecimiento> findByCodigo(String codigoEstablecimiento);
 
+    Optional<Establecimiento> deleteByCodigo(String codigoEstablecimiento);
+
 }

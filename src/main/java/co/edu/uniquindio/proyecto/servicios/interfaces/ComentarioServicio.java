@@ -11,5 +11,6 @@ public interface ComentarioServicio {
     String crearComentario(ComentarioDTO comentarioDTO) throws Exception;
     String responderComentario(ResponderComentarioDTO responderComentarioDTO) throws Exception;
     Optional<ArrayList<Comentario>> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception;
-
+    String eliminarComentario(String idComentario) throws Exception;
+    void actualizarComentario(ComentarioDTO comentarioDTO) throws Exception;
 }
