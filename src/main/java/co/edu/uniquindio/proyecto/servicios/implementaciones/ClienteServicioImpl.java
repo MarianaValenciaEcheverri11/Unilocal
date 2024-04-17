@@ -163,7 +163,7 @@ public class ClienteServicioImpl implements ClienteServicio {
     }
 
     private boolean existeUsuario(String nickname) {
-        return  clienteRepo.findByNickName(nickname).isPresent();
+        return clienteRepo.findByNickName(nickname).isPresent();
     }
 
     @Override

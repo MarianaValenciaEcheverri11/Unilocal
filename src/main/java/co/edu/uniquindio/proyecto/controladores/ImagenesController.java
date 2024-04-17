@@ -28,5 +28,4 @@ public class ImagenesController {
         Map respuesta = imagenesServicio.eliminarImagen(codigo);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, respuesta));
     }
-
 }
