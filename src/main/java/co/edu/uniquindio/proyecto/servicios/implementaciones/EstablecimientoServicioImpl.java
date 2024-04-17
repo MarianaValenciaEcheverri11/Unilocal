@@ -82,17 +82,79 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
 
     @Override
     public ArrayList<EstablecimientoDTO> listarEstablecimientos() {
-        return null;
+
+        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+        ArrayList<EstablecimientoDTO> establecimientosDTO = new ArrayList<>();
+
+        for (Establecimiento establecimiento : establecimientos) {
+            establecimientosDTO.add(new EstablecimientoDTO(
+                    establecimiento.getCodigo(),
+                    establecimiento.getImagenes(),
+                    establecimiento.getDescripcion(),
+                    establecimiento.getNombre(),
+                    establecimiento.getTelefonos(),
+                    establecimiento.getUbicacion(),
+                    establecimiento.getHorarios(),
+                    establecimiento.getCodigoUsuario(),
+                    establecimiento.getCategoria()
+            ));
+        }
+
+        return establecimientosDTO;
     }
 
     @Override
     public ArrayList<EstablecimientoDTO> listarEstablecimientosPorCategoria(String categoria) {
-        return null;
+
+            ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+            ArrayList<EstablecimientoDTO> establecimientosDTO = new ArrayList<>();
+
+            for (Establecimiento establecimiento : establecimientos) {
+
+                if (!establecimiento.getCategoria().equals(categoria)) {
+                    continue;
+                }
+                establecimientosDTO.add(new EstablecimientoDTO(
+                        establecimiento.getCodigo(),
+                        establecimiento.getImagenes(),
+                        establecimiento.getDescripcion(),
+                        establecimiento.getNombre(),
+                        establecimiento.getTelefonos(),
+                        establecimiento.getUbicacion(),
+                        establecimiento.getHorarios(),
+                        establecimiento.getCodigoUsuario(),
+                        establecimiento.getCategoria()
+                ));
+            }
+
+            return establecimientosDTO;
     }
 
     @Override
-    public String actualizarEstablecimiento(String codigoEstablecimient) throws Exception {
-        return null;
+    public String actualizarEstablecimiento(EstablecimientoDTO establecimientoDTO) throws Exception {
+
+            if (establecimientoDTO == null) {
+                throw new Exception("El establecimiento no puede ser nulo");
+            }
+
+            Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(establecimientoDTO.codigo());
+
+            if (establecimiento.isEmpty()) {
+                throw new Exception("El establecimiento no existe");
+            }
+
+            establecimiento.get().setImagenes(establecimientoDTO.imagenes());
+            establecimiento.get().setDescripcion(establecimientoDTO.descripcion());
+            establecimiento.get().setNombre(establecimientoDTO.nombre());
+            establecimiento.get().setTelefonos(establecimientoDTO.telefonos());
+            establecimiento.get().setUbicacion(establecimientoDTO.ubicacion());
+            establecimiento.get().setHorarios(establecimientoDTO.horarios());
+            establecimiento.get().setCodigoUsuario(establecimientoDTO.codigoUsuario());
+            establecimiento.get().setCategoria(establecimientoDTO.categoria());
+
+            establecimientoRepo.save(establecimiento.get());
+
+            return establecimiento.get().getCodigo();
     }
 
 }
