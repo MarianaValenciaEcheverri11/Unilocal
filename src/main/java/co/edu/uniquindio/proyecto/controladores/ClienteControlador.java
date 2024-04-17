@@ -71,8 +71,8 @@ public class ClienteControlador {
         }
 
         @GetMapping("/listar-historico-categorias-buscadas/{codigo}")
-        public ResponseEntity<MensajeDTO<List<CategoriaEstablecimiento>>> obtenerHistoricoCategoriasBuscadas(@PathVariable String codigoCliente) throws Exception {
-                return ResponseEntity.ok().body( new MensajeDTO<>(false, clienteServicio.obtenerHistoricoCategoriasBuscadas(codigoCliente))
+        public ResponseEntity<MensajeDTO<List<CategoriaEstablecimiento>>> obtenerHistoricoCategoriasBuscadas(@PathVariable String codigo) throws Exception {
+                return ResponseEntity.ok().body( new MensajeDTO<>(false, clienteServicio.obtenerHistoricoCategoriasBuscadas(codigo))
                 );
         }
 

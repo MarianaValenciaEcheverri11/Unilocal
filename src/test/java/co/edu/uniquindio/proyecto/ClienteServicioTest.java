@@ -35,10 +35,9 @@ public class ClienteServicioTest {
         Assertions.assertNotNull(clienteServicio.registrarCliente(registroClienteDTO));
     }
 
-
     @Test
     public void marcarLugarFavoritoTest() throws Exception {
-        FavoritoDTO favoritoDTO = new FavoritoDTO("123", "65fb83a3d11c7716241bd9d6");
+        FavoritoDTO favoritoDTO = new FavoritoDTO("23", "1234");
         clienteServicio.marcarLugarFavorito(favoritoDTO);
         ArrayList lista = clienteServicio.listarFavoritos(favoritoDTO.codigoCliente());
         Assertions.assertNotEquals(0, lista.size());
@@ -46,12 +45,12 @@ public class ClienteServicioTest {
 
     @Test
     public void eliminarLugarFavoritoTest() throws Exception {
-        FavoritoDTO favoritoDTO = new FavoritoDTO("123", "123");
+        FavoritoDTO favoritoDTO = new FavoritoDTO("23", "1234");
         Assertions.assertNotNull(clienteServicio.eliminarLugarFavorito(favoritoDTO));
     }
     @Test
     public void listarFavoritosTest() throws Exception {
-        String codigoCliente = "123";
+        String codigoCliente = "1234";
         Assertions.assertNotNull(clienteServicio.listarFavoritos(codigoCliente));
     }
 
@@ -63,19 +62,19 @@ public class ClienteServicioTest {
 
     @Test
     public void obtenerClienteTest() throws Exception {
-        String codigo = "123";
+        String codigo = "1234";
         Assertions.assertNotNull(clienteServicio.obtenerCliente(codigo));
     }
 
     @Test
     public void obtenerHistoricoCategoriasBuscadasTest() throws Exception {
-        String codigoCliente = "123";
+        String codigoCliente = "124";
         Assertions.assertNotNull(clienteServicio.obtenerHistoricoCategoriasBuscadas(codigoCliente));
     }
 
     @Test
     public void registrarCategoriaBuscadasTest() throws Exception {
-        RegistroCategoriaBuscadaDTO registroCategoriaBuscadaDTO = new RegistroCategoriaBuscadaDTO("123", CategoriaEstablecimiento.BAR);
+        RegistroCategoriaBuscadaDTO registroCategoriaBuscadaDTO = new RegistroCategoriaBuscadaDTO("1234", CategoriaEstablecimiento.BAR);
         Assertions.assertNotNull(clienteServicio.registrarCategoriaBuscadas(registroCategoriaBuscadaDTO));
     }
 }

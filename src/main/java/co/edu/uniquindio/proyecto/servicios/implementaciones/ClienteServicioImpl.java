@@ -142,6 +142,9 @@ public class ClienteServicioImpl implements ClienteServicio {
             throw new Exception("El cliente no existe");
         }
         ArrayList<CategoriaEstablecimiento> historicoCategoriasBuscadas = clienteRegistrado.get().getHistoricoCategoriasBuscadas();
+        if (historicoCategoriasBuscadas == null) {
+            historicoCategoriasBuscadas = new ArrayList<>();
+        }
         historicoCategoriasBuscadas.add(registroCategoriaBuscadaDTO.categoriaEstablecimiento());
         clienteRegistrado.get().setHistoricoCategoriasBuscadas(historicoCategoriasBuscadas);
         clienteRepo.save(clienteRegistrado.get());
