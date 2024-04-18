@@ -32,8 +32,16 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         if (comentarioDTO == null) {
             throw new Exception("El comentario no puede ser nulo");
         }
+
+        if (!existeUsuario(comentarioDTO.codigoCliente())) {
+            throw new Exception("El usuario no existe");
+        }
+
+        if (!existeEstablecimiento(comentarioDTO.codigoEstablecimiento())) {
+            throw new Exception("El establecimiento no existe");
+        }
+
         Comentario comentario = new Comentario(
-                comentarioDTO.codigoPublicacion(),
                 comentarioDTO.fecha(),
                 comentarioDTO.valoracion(),
                 comentarioDTO.codigoCliente(),
@@ -58,6 +66,14 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         emailServicio.enviarEmail(emailDTO);
 
         return comentario.getCodigo();
+    }
+
+    private boolean existeUsuario(String codigo) {
+        return clienteRepo.findByCodigo(codigo).isPresent();
+    }
+
+    private boolean existeEstablecimiento(String codigo) {
+        return establecimientoRepo.findByCodigo(codigo).isPresent();
     }
 
     public String responderComentario(ResponderComentarioDTO responderComentarioDTO) throws Exception {
@@ -111,11 +127,11 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     @Override
     public void actualizarComentario(ComentarioDTO comentarioDTO) throws Exception {
 
-        if (comentarioRepo.findByCodigo(comentarioDTO.codigoPublicacion()) == null) {
+        if (comentarioRepo.findByCodigo(comentarioDTO.codigoComentario()) == null) {
             throw new Exception("El comentario no existe");
         }
 
-        Comentario comentario = comentarioRepo.findByCodigo(comentarioDTO.codigoPublicacion());
+        Comentario comentario = comentarioRepo.findByCodigo(comentarioDTO.codigoComentario());
 
         comentario.setRespuesta(comentarioDTO.respuesta());
         comentario.setValoracion(comentarioDTO.valoracion());

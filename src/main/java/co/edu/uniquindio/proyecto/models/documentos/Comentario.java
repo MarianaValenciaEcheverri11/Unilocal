@@ -27,8 +27,7 @@ public class Comentario implements Serializable {
     private String respuesta;
 
     @Builder
-    public Comentario(String codigo, String fecha, int valoracion, String codigoCliente, String codigoEstablecimiento,String resenia, String respuesta) {
-        this.codigo = codigo;
+    public Comentario(String fecha, int valoracion, String codigoCliente, String codigoEstablecimiento,String resenia, String respuesta) {
         this.fecha = fecha;
         this.valoracion = valoracion;
         this.codigoCliente = codigoCliente;

@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import java.time.LocalDateTime;
 
 public record ComentarioDTO(
-        @NotBlank(message = "Código obligatorio") String codigoPublicacion,
+        @NotBlank(message = "Código obligatorio") String codigoComentario,
         @NotBlank(message = "Fecha obligatoria")  @Length(max = 20) String fecha,
         int valoracion,
         @NotBlank(message = "Código del cliente obligatorio") String codigoCliente,
