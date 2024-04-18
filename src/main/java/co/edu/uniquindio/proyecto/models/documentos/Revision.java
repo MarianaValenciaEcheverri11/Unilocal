@@ -21,16 +21,16 @@ public class Revision implements Serializable {
     @EqualsAndHashCode.Include
 
     private String codigo;
-    private String codigoPublicacion;
+    private String codigoEstablecimiento;
     private String descripcion;
     private EstadoPublicacion estado;
-    private LocalDateTime fecha;
+    private String fecha;
     private String codigoModerador;
 
     @Builder
-    public Revision(String codigo, String codigoPublicacion, String descripcion, EstadoPublicacion estado, LocalDateTime fecha, String codigoModerador) {
+    public Revision(String codigo, String codigoEstablecimiento, String descripcion, EstadoPublicacion estado, String fecha, String codigoModerador) {
         this.codigo = codigo;
-        this.codigoPublicacion = codigoPublicacion;
+        this.codigoEstablecimiento = codigoEstablecimiento;
         this.descripcion = descripcion;
         this.estado = estado;
         this.fecha = fecha;

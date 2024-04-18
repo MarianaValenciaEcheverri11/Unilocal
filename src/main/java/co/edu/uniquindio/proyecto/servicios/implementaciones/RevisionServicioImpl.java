@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -24,13 +25,9 @@ public class RevisionServicioImpl implements RevisionServicio {
         if (revisionDTO == null) {
             throw new Exception("La revision no puede ser nula");
         }
-        if (revisionDTO.codigo().isEmpty()) {
-            throw new Exception("El codigo de la revision es obligatorio");
-        }
 
         Revision revision = Revision.builder().
-                codigo(revisionDTO.codigo()).
-                codigoPublicacion(revisionDTO.codigoPublicacion()).
+                codigoEstablecimiento(revisionDTO.codigoEstablecimiento()).
                 descripcion(revisionDTO.descripcion()).
                 estado(revisionDTO.estado()).
                 fecha(revisionDTO.fecha()).
@@ -52,13 +49,17 @@ public class RevisionServicioImpl implements RevisionServicio {
             throw new Exception("La revision no existe");
         }
         return new RevisionDTO(
-                revision.get().getCodigo(),
-                revision.get().getCodigoPublicacion(),
+                revision.get().getCodigoEstablecimiento(),
                 revision.get().getDescripcion(),
                 revision.get().getEstado(),
                 revision.get().getFecha(),
                 revision.get().getCodigoModerador()
         );
+    }
+
+    @Override
+    public ArrayList<Revision> obtenerTodasRevisiones() throws Exception {
+        return (ArrayList<Revision>) revisionRepo.findAll();
     }
 
 }
