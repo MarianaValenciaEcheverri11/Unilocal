@@ -23,9 +23,8 @@ public class RevisionServicioTest {
         RevisionDTO revisionDTO = new RevisionDTO(
                 "12",
                 "12",
-                "12",
                 EstadoPublicacion.APROBADA,
-                LocalDateTime.now(),
+                "" + LocalDateTime.now(),
                 "12"
                 );
 

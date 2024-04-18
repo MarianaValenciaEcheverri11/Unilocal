@@ -89,5 +89,20 @@ public class    EstablecimientoServicioTest {
 
     }
 
+    @Test
+    public void obtenerEstablecimientoAleatorioTest() throws Exception {
+
+        Assertions.assertNotNull(establecimientoServicio.obtenerEstablecimientoAleatorio());
+
+    }
+
+    @Test
+    public void listarMejoresEstablecimientosTest() throws Exception {
+
+        ArrayList<Establecimiento> lista = (ArrayList<Establecimiento>) establecimientoServicio.listarMejoresEstablecimientos();
+
+        Assertions.assertTrue(lista.size() > 0);
+
+    }
 
 }

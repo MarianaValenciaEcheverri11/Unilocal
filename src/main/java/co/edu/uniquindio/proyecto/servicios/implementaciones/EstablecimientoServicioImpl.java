@@ -93,6 +93,34 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     }
 
     @Override
+    public Establecimiento obtenerEstablecimientoAleatorio() throws Exception {
+
+        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+
+        if (establecimientos.isEmpty()) {
+            throw new Exception("No hay establecimientos");
+        }
+
+        int numeroAleatorio = (int) (Math.random() * establecimientos.size());
+
+        return establecimientos.get(numeroAleatorio);
+    }
+
+    @Override
+    public ArrayList<Establecimiento> listarMejoresEstablecimientos() throws Exception {
+
+        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+
+        if (establecimientos.isEmpty()) {
+            throw new Exception("No hay establecimientos");
+        }
+
+        establecimientos.sort((e1, e2) -> Float.compare(e2.getPromedio(), e1.getPromedio()));
+
+        return new ArrayList<>(establecimientos.subList(0, Math.min(3, establecimientos.size())));
+    }
+
+    @Override
     public String actualizarEstablecimiento(String codigo, EstablecimientoDTO establecimientoDTO) throws Exception {
 
             if (establecimientoDTO == null) {

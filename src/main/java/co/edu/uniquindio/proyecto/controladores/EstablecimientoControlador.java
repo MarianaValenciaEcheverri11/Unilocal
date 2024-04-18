@@ -54,4 +54,14 @@ public class EstablecimientoControlador {
         return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorCategoria(categoria));
     }
 
+    @GetMapping("/obtener-establecimiento-aleatorio")
+    public ResponseEntity<Establecimiento> obtenerEstablecimientoAleatorio() throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.obtenerEstablecimientoAleatorio());
+    }
+
+    @GetMapping("/listar-mejores-establecimientos")
+    public ResponseEntity<ArrayList<Establecimiento>> listarMejoresEstablecimientos() throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarMejoresEstablecimientos());
+    }
+
 }
