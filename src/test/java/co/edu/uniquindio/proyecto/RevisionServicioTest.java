@@ -25,11 +25,20 @@ public class RevisionServicioTest {
                 "12",
                 "12",
                 EstadoPublicacion.APROBADA,
-                LocalDateTime.MAX,
+                LocalDateTime.now(),
                 "12"
                 );
 
         Assertions.assertNotNull(revisionServicio.enviarRevision(revisionDTO));
 
     }
+
+    @Test
+    public void obtenerRevisionTest() throws Exception {
+
+        Assertions.assertNotNull(revisionServicio.consultarRevisiones("12"));
+
+    }
+
+
 }

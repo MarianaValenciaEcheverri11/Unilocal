@@ -9,6 +9,5 @@ import java.util.Optional;
 public interface RevisionServicio {
 
     String enviarRevision(RevisionDTO revisionDTO) throws Exception;
-    Optional<Revision> consultarRevisiones(String codigo) throws Exception;
-    String eliminarRevision(String codigo) throws Exception;
+    RevisionDTO consultarRevisiones(String codigo) throws Exception;
 }

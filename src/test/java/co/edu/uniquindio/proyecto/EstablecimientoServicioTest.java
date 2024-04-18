@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 
 @SpringBootTest
-public class EstablecimientoServicioTest {
+public class    EstablecimientoServicioTest {
 
     @Autowired
     private EstablecimientoServicio establecimientoServicio;

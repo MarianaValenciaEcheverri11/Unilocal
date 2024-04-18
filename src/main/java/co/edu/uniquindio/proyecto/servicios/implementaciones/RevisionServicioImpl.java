@@ -5,12 +5,18 @@ import co.edu.uniquindio.proyecto.models.documentos.Revision;
 import co.edu.uniquindio.proyecto.models.enums.EstadoPublicacion;
 import co.edu.uniquindio.proyecto.repository.RevisionRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.RevisionServicio;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
+@Transactional
+@RequiredArgsConstructor
 public class RevisionServicioImpl implements RevisionServicio {
 
-    RevisionRepo revisionRepo;
+    private final RevisionRepo revisionRepo;
 
     @Override
     public String enviarRevision(RevisionDTO revisionDTO) throws Exception {
@@ -37,21 +43,22 @@ public class RevisionServicioImpl implements RevisionServicio {
     }
 
     @Override
-    public Optional<Revision> consultarRevisiones(String codigo) throws Exception {
+    public RevisionDTO consultarRevisiones(String codigo) throws Exception {
         if (codigo.isEmpty()) {
             throw new Exception("El codigo de la revision es obligatorio");
         }
-        return revisionRepo.findById(codigo);
-    }
-
-    @Override
-    public String eliminarRevision(String codigo) throws Exception {
-        if (codigo.isEmpty()) {
-            throw new Exception("El codigo de la revision es obligatorio");
+        Optional<Revision> revision = revisionRepo.findById(codigo);
+        if (revision.isEmpty()) {
+            throw new Exception("La revision no existe");
         }
-        revisionRepo.deleteById(codigo);
-        return "Revision eliminada";
+        return new RevisionDTO(
+                revision.get().getCodigo(),
+                revision.get().getCodigoPublicacion(),
+                revision.get().getDescripcion(),
+                revision.get().getEstado(),
+                revision.get().getFecha(),
+                revision.get().getCodigoModerador()
+        );
     }
-
 
 }
