@@ -6,31 +6,31 @@ import java.time.LocalDateTime;
 
 public class Horario {
 
-    private LocalDateTime horaApertura;
+    private String horaApertura;
 
-    private LocalDateTime horaCierre;
+    private String horaCierre;
 
     private Dia dia ;
 
-    public Horario(LocalDateTime horaApertura, LocalDateTime horaCierre, Dia dia) {
+    public Horario(String horaApertura, String horaCierre, Dia dia) {
         this.horaApertura = horaApertura;
         this.horaCierre = horaCierre;
         this.dia = dia;
     }
 
-    public LocalDateTime getHoraApertura() {
+    public String getHoraApertura() {
         return horaApertura;
     }
 
-    public void setHoraApertura(LocalDateTime horaApertura) {
+    public void setHoraApertura(String horaApertura) {
         this.horaApertura = horaApertura;
     }
 
-    public LocalDateTime getHoraCierre() {
+    public String getHoraCierre() {
         return horaCierre;
     }
 
-    public void setHoraCierre(LocalDateTime horaCierre) {
+    public void setHoraCierre(String horaCierre) {
         this.horaCierre = horaCierre;
     }
 

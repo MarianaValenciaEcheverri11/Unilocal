@@ -2,20 +2,20 @@ package co.edu.uniquindio.proyecto.models.entidades;
 
 public class Ubicacion {
 
-    private double lontitud;
+    private double longitud;
     private double latitud;
 
-    public Ubicacion(double lontitud, double latitud) {
-        this.lontitud = lontitud;
+    public Ubicacion(double longitud, double latitud) {
+        this.longitud = longitud;
         this.latitud = latitud;
     }
 
-    public double getLontitud() {
-        return lontitud;
+    public double getLongitud() {
+        return longitud;
     }
 
-    public void setLontitud(double lontitud) {
-        this.lontitud = lontitud;
+    public void setLongitud(double lontitud) {
+        this.longitud = lontitud;
     }
 
     public double getLatitud() {
