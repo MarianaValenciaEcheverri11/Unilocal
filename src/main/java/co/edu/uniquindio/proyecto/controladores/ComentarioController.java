@@ -23,6 +23,7 @@ public class ComentarioController {
 
     private final ComentarioServicio comentarioServicio;
 
+//    TODO: Quitar id del DTO
     @PostMapping("/registrar-comentario")
     public ResponseEntity<MensajeDTO<String>> registrarComentario(@Valid @RequestBody ComentarioDTO comentarioDTO) throws Exception {
         comentarioServicio.crearComentario(comentarioDTO);
@@ -50,6 +51,7 @@ public class ComentarioController {
         );
     }
 
+//   TODO: AGREGAR ID AL PUT
     @PutMapping("/actualizar-comentario")
     public ResponseEntity<MensajeDTO<String>> actualizarComentario(@Valid @RequestBody ComentarioDTO comentarioDTO) throws Exception {
         comentarioServicio.actualizarComentario(comentarioDTO);

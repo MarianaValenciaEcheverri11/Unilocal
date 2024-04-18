@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import java.util.ArrayList;
 
 public record EstablecimientoDTO(
-        @NotBlank(message = "codigo obligatorio") String codigo,
         ArrayList<String> imagenes,
         @NotBlank(message = "descripcion obligatorio") @Length(max = 20) String descripcion,
         @NotBlank(message = "nombre obligatorio") @Length(max = 20) String nombre,

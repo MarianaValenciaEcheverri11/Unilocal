@@ -1,14 +1,15 @@
 package co.edu.uniquindio.proyecto.controladores;
 
-import co.edu.uniquindio.proyecto.dto.ActualizacionCuentaDTO;
 import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
 import co.edu.uniquindio.proyecto.dto.MensajeDTO;
-import co.edu.uniquindio.proyecto.dto.RegistroClienteDTO;
+import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class EstablecimientoControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EstablecimientoDTO> obtenerEstablecimiento(@PathVariable String id) throws Exception {
+    public ResponseEntity<Establecimiento> obtenerEstablecimiento(@PathVariable String id) throws Exception {
         return ResponseEntity.ok().body(establecimientoServicio.obtenerEstablecimiento(id));
     }
 
@@ -36,11 +37,21 @@ public class EstablecimientoControlador {
         );
     }
 
-//    @PutMapping("/actualizar-establecimiento/{id}")
-//    public ResponseEntity<MensajeDTO<String>> actualizarEstablecimiento(@Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {
-//        establecimientoServicio.actualizarEstablecimiento(id, establecimientoDTO);
-//        return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento actualizado correctamente")
-//        );
-//    }
+    @PutMapping("/actualizar-establecimiento/{id}")
+    public ResponseEntity<MensajeDTO<String>> actualizarEstablecimiento(@PathVariable String id, @Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {
+        establecimientoServicio.actualizarEstablecimiento(id, establecimientoDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento actualizado correctamente")
+        );
+    }
+
+    @GetMapping("/listar-establecimientos")
+    public ResponseEntity<ArrayList<Establecimiento>> listarEstablecimientos() throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientos());
+    }
+
+    @GetMapping("/listar-establecimientos-por-categoria/{categoria}")
+    public ResponseEntity<ArrayList<Establecimiento>> listarEstablecimientosPorCategoria(@PathVariable String categoria) throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorCategoria(categoria));
+    }
 
 }

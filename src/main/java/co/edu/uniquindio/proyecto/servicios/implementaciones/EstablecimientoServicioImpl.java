@@ -2,7 +2,6 @@ package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
-import co.edu.uniquindio.proyecto.models.entidades.Horario;
 import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +25,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
             throw new Exception("El establecimiento no puede ser nulo");
         }
 
-        if (establecimientoRepo.findByCodigo(establecimientoDTO.codigo()).isPresent()) {
-            throw new Exception("El establecimiento ya existe");
-        }
-
         Establecimiento establecimiento = Establecimiento.builder()
-                .codigo(establecimientoDTO.codigo())
                 .imagenes(establecimientoDTO.imagenes())
                 .descripcion(establecimientoDTO.descripcion())
                 .nombre(establecimientoDTO.nombre())
@@ -48,21 +42,16 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     }
 
     @Override
-    public EstablecimientoDTO obtenerEstablecimiento(String codigoEstablecimiento) throws Exception {
+    public Establecimiento obtenerEstablecimiento(String codigoEstablecimiento) throws Exception {
 
         Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(codigoEstablecimiento);
 
-        return establecimiento.map(value -> new EstablecimientoDTO(
-                value.getCodigo(),
-                value.getImagenes(),
-                value.getDescripcion(),
-                value.getNombre(),
-                value.getTelefonos(),
-                value.getUbicacion(),
-                value.getHorarios(),
-                value.getCodigoUsuario(),
-                value.getCategoria()
-        )).orElse(null);
+        if (establecimiento.isEmpty()) {
+            throw new Exception("El establecimiento no existe");
+        }
+
+
+        return establecimiento.get();
 
     }
 
@@ -81,63 +70,37 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     }
 
     @Override
-    public ArrayList<EstablecimientoDTO> listarEstablecimientos() {
+    public ArrayList<Establecimiento> listarEstablecimientos() {
 
         ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
-        ArrayList<EstablecimientoDTO> establecimientosDTO = new ArrayList<>();
 
-        for (Establecimiento establecimiento : establecimientos) {
-            establecimientosDTO.add(new EstablecimientoDTO(
-                    establecimiento.getCodigo(),
-                    establecimiento.getImagenes(),
-                    establecimiento.getDescripcion(),
-                    establecimiento.getNombre(),
-                    establecimiento.getTelefonos(),
-                    establecimiento.getUbicacion(),
-                    establecimiento.getHorarios(),
-                    establecimiento.getCodigoUsuario(),
-                    establecimiento.getCategoria()
-            ));
-        }
-
-        return establecimientosDTO;
+        return establecimientos;
     }
 
     @Override
-    public ArrayList<EstablecimientoDTO> listarEstablecimientosPorCategoria(String categoria) {
+    public ArrayList<Establecimiento> listarEstablecimientosPorCategoria(String categoria) {
 
             ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
-            ArrayList<EstablecimientoDTO> establecimientosDTO = new ArrayList<>();
+
+            ArrayList<Establecimiento> establecimientosCategoria = new ArrayList<>();
 
             for (Establecimiento establecimiento : establecimientos) {
-
-                if (!establecimiento.getCategoria().equals(categoria)) {
-                    continue;
+                if (establecimiento.getCategoria().equals(categoria)) {
+                    establecimientosCategoria.add(establecimiento);
                 }
-                establecimientosDTO.add(new EstablecimientoDTO(
-                        establecimiento.getCodigo(),
-                        establecimiento.getImagenes(),
-                        establecimiento.getDescripcion(),
-                        establecimiento.getNombre(),
-                        establecimiento.getTelefonos(),
-                        establecimiento.getUbicacion(),
-                        establecimiento.getHorarios(),
-                        establecimiento.getCodigoUsuario(),
-                        establecimiento.getCategoria()
-                ));
             }
 
-            return establecimientosDTO;
+            return establecimientosCategoria;
     }
 
     @Override
-    public String actualizarEstablecimiento(EstablecimientoDTO establecimientoDTO) throws Exception {
+    public String actualizarEstablecimiento(String codigo, EstablecimientoDTO establecimientoDTO) throws Exception {
 
             if (establecimientoDTO == null) {
                 throw new Exception("El establecimiento no puede ser nulo");
             }
 
-            Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(establecimientoDTO.codigo());
+            Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(codigo);
 
             if (establecimiento.isEmpty()) {
                 throw new Exception("El establecimiento no existe");
