@@ -11,7 +11,7 @@ public interface EstablecimientoServicio {
 
     String crearEstablecimiento(EstablecimientoDTO establecimientoDTO) throws Exception;
     EstablecimientoDTO obtenerEstablecimiento(String codigoEstablecimiento) throws Exception;
-    String actualizarEstablecimiento(String codigoEstablecimiento) throws Exception;
+    String actualizarEstablecimiento(EstablecimientoDTO establecimientoDTO) throws Exception;
     String eliminarEstablecimiento(String codigoEstablecimiento) throws Exception;
 
     ArrayList<EstablecimientoDTO> listarEstablecimientos();

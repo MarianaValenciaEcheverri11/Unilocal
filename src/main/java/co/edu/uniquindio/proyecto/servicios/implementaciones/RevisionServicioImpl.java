@@ -2,16 +2,15 @@ package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.RevisionDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Revision;
+import co.edu.uniquindio.proyecto.models.enums.EstadoPublicacion;
+import co.edu.uniquindio.proyecto.repository.RevisionRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.RevisionServicio;
 
 import java.util.Optional;
 
 public class RevisionServicioImpl implements RevisionServicio {
 
-    @Override
-    public void establecerRevision() throws Exception {
-
-    }
+    RevisionRepo revisionRepo;
 
     @Override
     public String enviarRevision(RevisionDTO revisionDTO) throws Exception {
@@ -32,41 +31,27 @@ public class RevisionServicioImpl implements RevisionServicio {
                 codigoModerador(revisionDTO.codigoModerador()).
                 build(
         );
-
+        revisionRepo.save(revision);
         return revision.getCodigo();
 
     }
 
     @Override
     public Optional<Revision> consultarRevisiones(String codigo) throws Exception {
-
         if (codigo.isEmpty()) {
             throw new Exception("El codigo de la revision es obligatorio");
         }
-
-        return Optional.empty();
+        return revisionRepo.findById(codigo);
     }
 
     @Override
-    public String mensajeRevision(String mensaje) throws Exception {
-
-            if (mensaje.isEmpty()) {
-                throw new Exception("El mensaje de la revision es obligatorio");
-            }
-
-            return mensaje;
+    public String eliminarRevision(String codigo) throws Exception {
+        if (codigo.isEmpty()) {
+            throw new Exception("El codigo de la revision es obligatorio");
+        }
+        revisionRepo.deleteById(codigo);
+        return "Revision eliminada";
     }
 
-    @Override
-    public String aprobarRevision(String estado) throws Exception {
 
-            return null;
-
-    }
-
-    @Override
-    public String rechazarRevision(String estado) throws Exception {
-
-                return null;
-    }
 }
