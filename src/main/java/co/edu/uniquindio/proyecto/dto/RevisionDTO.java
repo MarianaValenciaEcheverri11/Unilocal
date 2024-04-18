@@ -7,10 +7,10 @@ import org.hibernate.validator.constraints.Length;
 import java.time.LocalDateTime;
 
 public record RevisionDTO(
-        @NotBlank (message = "codigo publicacion obligatorio")@Length (max = 20) String codigoEstablecimiento,
-        @NotBlank (message = "descripcion obligatorio") @Length (max = 20) String descripcion,
-        @NotBlank (message = "estado publicacion obligatorio")@Length (max = 20) EstadoPublicacion estado,
-        @NotBlank (message = "feccha obligatorio") @Length (max = 20) String fecha,
-        @NotBlank (message = "codigo moderador obligatorio")@Length (max = 20) String codigoModerador
+        @NotBlank (message = "codigo publicacion obligatorio") String codigoEstablecimiento,
+        @NotBlank (message = "descripcion obligatorio") @Length (max = 100) String descripcion,
+        EstadoPublicacion estado,
+        @NotBlank (message = "feccha obligatorio") String fecha,
+        @NotBlank (message = "codigo moderador obligatorio") String codigoModerador
 ) {
 }

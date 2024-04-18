@@ -99,7 +99,9 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         return comentario.get().getCodigo();
     }
 
-    public Optional<ArrayList<Comentario>> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception {
+    public ArrayList<Comentario> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception {
+
+        System.out.println(idEstablecimiento);
 
         Optional<ArrayList<Comentario>> comentarios = comentarioRepo.findByCodigoEstablecimiento(idEstablecimiento);
 
@@ -107,7 +109,13 @@ public class ComentarioServicioImpl implements ComentarioServicio {
             throw new Exception("No hay comentarios para esta publicación");
         }
 
-        return comentarioRepo.findByCodigoEstablecimiento(idEstablecimiento);
+        comentarios.get().forEach(
+                comentario -> {
+                    System.out.println(comentario.getCodigo());
+                }
+        );
+
+        return comentarios.get();
     }
 
     @Override

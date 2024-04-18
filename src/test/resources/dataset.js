@@ -7,7 +7,7 @@ db.clientes.insertMany([
         codigoFavorito: [],
         email: "andreciito38@gmail.com",
         foto: "http://res.cloudinary.com/duykwcgkw/image/upload/v1713369817/unilocal/wk8cvjxkwkn68xnydidj.jpg",
-        rol: "CLIENTE",
+        rol: "USUARIO",
         contrasena: "$2a$10$vwiSf/XinZWFFGpR6POwv.fg.EVur5ykQqr8o.QBX1Y9/kdKKT2VO",
         estado: "ACTIVA",
         historicoCategoriasBuscadas: ["RESTAURANTE", "BAR"],
@@ -76,7 +76,7 @@ db.save()
 
 db.revisiones.insertMany([
     {
-        codigoEstablecimiento: "string",
+        codigoEstablecimiento: establecimiento._id,
         descripcion: "Por favor corregir la ubicacion",
         estado: "APROBADA",
         fecha: "2021-06-01",

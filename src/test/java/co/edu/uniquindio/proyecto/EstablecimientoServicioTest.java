@@ -32,21 +32,26 @@ public class    EstablecimientoServicioTest {
 
         Assertions.assertNotNull(establecimientoServicio.crearEstablecimiento(establecimientoDTO));
 
+        System.err.println(establecimientoServicio.crearEstablecimiento(establecimientoDTO));
+
     }
 
     @Test
     public void obtenerEstablecimientoTest() throws Exception {
 
-        Assertions.assertNotNull(establecimientoServicio.obtenerEstablecimiento("12"));
+        Assertions.assertNotNull(establecimientoServicio.obtenerEstablecimiento("662166f6cde027238c25b8e5"));
+        System.err.println(establecimientoServicio.obtenerEstablecimiento("662166f6cde027238c25b8e5"));
 
     }
 
     @Test
     public void eliminarEstablecimientoTest() throws Exception {
 
-        establecimientoServicio.eliminarEstablecimiento("12");
+        establecimientoServicio.eliminarEstablecimiento("662166f6cde027238c25b8e5");
 
-        Assertions.assertTrue(establecimientoServicio.obtenerEstablecimiento("12") == null);
+        Assertions.assertTrue(establecimientoServicio.obtenerEstablecimiento("662166f6cde027238c25b8e5") == null);
+
+        System.err.println(establecimientoServicio.obtenerEstablecimiento("662166f6cde027238c25b8e5"));
 
     }
 
@@ -55,18 +60,19 @@ public class    EstablecimientoServicioTest {
 
         ArrayList<Establecimiento> lista = (ArrayList<Establecimiento>) establecimientoServicio.listarEstablecimientos();
 
-        System.out.println(lista);
+        System.err.println(lista);
 
         Assertions.assertTrue(lista.size() > 0);
+
 
     }
 
     @Test
     public void listarEstablecimientosPorCategoriaTest() throws Exception {
 
-        ArrayList<Establecimiento> lista = (ArrayList<Establecimiento>) establecimientoServicio.listarEstablecimientosPorCategoria("12");
+        ArrayList<Establecimiento> lista = (ArrayList<Establecimiento>) establecimientoServicio.listarEstablecimientosPorCategoria("RESTAURANTE");
 
-        System.out.println(lista);
+        System.err.println(lista);
 
         Assertions.assertTrue(lista.size() > 0);
 
@@ -87,12 +93,16 @@ public class    EstablecimientoServicioTest {
 
         Assertions.assertNotNull(establecimientoServicio.actualizarEstablecimiento("12", establecimientoDTO));
 
+        System.err.println(establecimientoServicio.actualizarEstablecimiento("12", establecimientoDTO));
+
     }
 
     @Test
     public void obtenerEstablecimientoAleatorioTest() throws Exception {
 
         Assertions.assertNotNull(establecimientoServicio.obtenerEstablecimientoAleatorio());
+
+        System.err.println(establecimientoServicio.obtenerEstablecimientoAleatorio());
 
     }
 
@@ -102,6 +112,8 @@ public class    EstablecimientoServicioTest {
         ArrayList<Establecimiento> lista = (ArrayList<Establecimiento>) establecimientoServicio.listarMejoresEstablecimientos();
 
         Assertions.assertTrue(lista.size() > 0);
+
+        System.err.println(lista);
 
     }
 

@@ -38,7 +38,7 @@ public class ComentarioController {
     }
 
     @GetMapping("/listar-comentarios-establecimiento/{idEstablecimiento}")
-    public ResponseEntity<MensajeDTO<Optional<ArrayList<Comentario>>>> listarComentariosPorEstablecimiento(@PathVariable String idEstablecimiento) throws Exception {
+    public ResponseEntity<MensajeDTO<ArrayList<Comentario>>> listarComentariosPorEstablecimiento(@PathVariable String idEstablecimiento) throws Exception {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.listarComentariosPorEstablecimiento(idEstablecimiento))
         );
     }
