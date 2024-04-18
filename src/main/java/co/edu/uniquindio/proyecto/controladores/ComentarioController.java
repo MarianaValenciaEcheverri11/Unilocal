@@ -23,7 +23,6 @@ public class ComentarioController {
 
     private final ComentarioServicio comentarioServicio;
 
-//    TODO: Quitar id del DTO
     @PostMapping("/registrar-comentario")
     public ResponseEntity<MensajeDTO<String>> registrarComentario(@Valid @RequestBody ComentarioDTO comentarioDTO) throws Exception {
         comentarioServicio.crearComentario(comentarioDTO);
@@ -31,9 +30,9 @@ public class ComentarioController {
         );
     }
 
-    @PostMapping("/responder-comentario")
-    public ResponseEntity<MensajeDTO<String>> responderComentario(@Valid @RequestBody ResponderComentarioDTO responderComentarioDTO) throws Exception {
-        comentarioServicio.responderComentario(responderComentarioDTO);
+    @PutMapping("/responder-comentario/{id}")
+    public ResponseEntity<MensajeDTO<String>> responderComentario(@PathVariable String id, @Valid @RequestBody ResponderComentarioDTO responderComentarioDTO) throws Exception {
+        comentarioServicio.responderComentario(id, responderComentarioDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Comentario respondido correctamente")
         );
     }
@@ -51,10 +50,9 @@ public class ComentarioController {
         );
     }
 
-//   TODO: AGREGAR ID AL PUT
-    @PutMapping("/actualizar-comentario")
-    public ResponseEntity<MensajeDTO<String>> actualizarComentario(@Valid @RequestBody ComentarioDTO comentarioDTO) throws Exception {
-        comentarioServicio.actualizarComentario(comentarioDTO);
+    @PutMapping("/actualizar-comentario/{codigo}")
+    public ResponseEntity<MensajeDTO<String>> actualizarComentario(@PathVariable String codigo, @Valid @RequestBody ComentarioDTO comentarioDTO) throws Exception {
+        comentarioServicio.actualizarComentario(codigo, comentarioDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Comentario actualizado correctamente")
         );
     }

@@ -76,30 +76,27 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         return establecimientoRepo.findByCodigo(codigo).isPresent();
     }
 
-    public String responderComentario(ResponderComentarioDTO responderComentarioDTO) throws Exception {
+    public String responderComentario(String codigo, ResponderComentarioDTO responderComentarioDTO) throws Exception {
 
-        if (comentarioRepo.findByCodigo(responderComentarioDTO.idPublicacion()) == null) {
-            throw new Exception("El comentario no existe");
-        }
-        Comentario comentario = comentarioRepo.findByCodigo(responderComentarioDTO.idPublicacion());
-        comentario.setRespuesta(responderComentarioDTO.ComentarioInsertado());
-        comentarioRepo.save(comentario);
+        Optional<Comentario> comentario = comentarioRepo.findByCodigo(codigo);
+        comentario.get().setRespuesta(responderComentarioDTO.ComentarioInsertado());
+        comentarioRepo.save(comentario.get());
 
-        Optional<Cliente> cliente = clienteRepo.findByCodigo(comentario.getCodigoCliente());
+        Optional<Cliente> cliente = clienteRepo.findByCodigo(comentario.get().getCodigoCliente());
         EmailDTO emailDTO = new EmailDTO(
                 cliente.get().getEmail(),
                 "Respuesta a su comentario",
                 "Se ha respondido a su comentario \n" +
-                        "Fecha: " + comentario.getFecha() + "\n" +
-                        "Valoración: " + comentario.getValoracion() + "\n" +
-                        "Reseña: " + comentario.getResenia() + "\n" +
-                        "Respuesta: " + comentario.getRespuesta() + "\n" +
+                        "Fecha: " + comentario.get().getFecha() + "\n" +
+                        "Valoración: " + comentario.get().getValoracion() + "\n" +
+                        "Reseña: " + comentario.get().getResenia() + "\n" +
+                        "Respuesta: " + comentario.get().getRespuesta() + "\n" +
                         "Gracias por usar nuestra plataforma."
         );
 
         emailServicio.enviarEmail(emailDTO);
 
-        return comentario.getCodigo();
+        return comentario.get().getCodigo();
     }
 
     public Optional<ArrayList<Comentario>> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception {
@@ -125,18 +122,18 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     }
 
     @Override
-    public void actualizarComentario(ComentarioDTO comentarioDTO) throws Exception {
+    public void actualizarComentario(String codigo, ComentarioDTO comentarioDTO) throws Exception {
 
-        if (comentarioRepo.findByCodigo(comentarioDTO.codigoComentario()) == null) {
+        if (comentarioRepo.findByCodigo(codigo).isEmpty()) {
             throw new Exception("El comentario no existe");
         }
 
-        Comentario comentario = comentarioRepo.findByCodigo(comentarioDTO.codigoComentario());
+        Optional<Comentario> comentario = comentarioRepo.findByCodigo(codigo);
 
-        comentario.setRespuesta(comentarioDTO.respuesta());
-        comentario.setValoracion(comentarioDTO.valoracion());
-        comentario.setResenia(comentarioDTO.resenia());
-        comentarioRepo.save(comentario);
+        comentario.get().setRespuesta(comentarioDTO.respuesta());
+        comentario.get().setValoracion(comentarioDTO.valoracion());
+        comentario.get().setResenia(comentarioDTO.resenia());
+        comentarioRepo.save(comentario.get());
 
     }
 

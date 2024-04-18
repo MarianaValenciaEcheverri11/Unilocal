@@ -50,7 +50,6 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
             throw new Exception("El establecimiento no existe");
         }
 
-
         return establecimiento.get();
 
     }
