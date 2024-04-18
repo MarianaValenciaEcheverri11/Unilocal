@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto;
 
 import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
+import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.models.entidades.Horario;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +20,6 @@ public class    EstablecimientoServicioTest {
     @Test
     public void crearEstablecimientoTest() throws Exception {
         EstablecimientoDTO establecimientoDTO = new EstablecimientoDTO(
-                "12",
                 null,
                 "Hola, me encanta este lugar",
                 "12",
@@ -49,5 +49,45 @@ public class    EstablecimientoServicioTest {
         Assertions.assertTrue(establecimientoServicio.obtenerEstablecimiento("12") == null);
 
     }
+
+    @Test
+    public void listarEstablecimientosTest() throws Exception {
+
+        ArrayList<Establecimiento> lista = (ArrayList<Establecimiento>) establecimientoServicio.listarEstablecimientos();
+
+        System.out.println(lista);
+
+        Assertions.assertTrue(lista.size() > 0);
+
+    }
+
+    @Test
+    public void listarEstablecimientosPorCategoriaTest() throws Exception {
+
+        ArrayList<Establecimiento> lista = (ArrayList<Establecimiento>) establecimientoServicio.listarEstablecimientosPorCategoria("12");
+
+        System.out.println(lista);
+
+        Assertions.assertTrue(lista.size() > 0);
+
+    }
+
+    @Test
+    public void actualizarEstablecimientoTest() throws Exception {
+        EstablecimientoDTO establecimientoDTO = new EstablecimientoDTO(
+                null,
+                "Hola, me encanta este lugar",
+                "12",
+                null,
+                null,
+                null,
+                "string",
+                "string"
+        );
+
+        Assertions.assertNotNull(establecimientoServicio.actualizarEstablecimiento("12", establecimientoDTO));
+
+    }
+
 
 }

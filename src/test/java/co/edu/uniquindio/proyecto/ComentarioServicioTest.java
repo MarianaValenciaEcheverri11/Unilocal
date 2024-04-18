@@ -17,10 +17,9 @@ public class ComentarioServicioTest {
     @Test
     public void crearComentarioTest() throws Exception {
         ComentarioDTO comentarioDTO = new ComentarioDTO(
-                "123",
                 "2021-10-10",
                 5,
-                "string",
+                "123",
                 "12",
                 "Hola, me encanta este lugar",
                 ""
@@ -30,13 +29,31 @@ public class ComentarioServicioTest {
 
     @Test
     public void responderComentarioTest() throws Exception {
-        Assertions.assertNotNull(comentarioServicio.responderComentario(new ResponderComentarioDTO("123", "Muchas gracias, tambien me encantas :3")));
+        Assertions.assertNotNull(comentarioServicio.responderComentario("123", new ResponderComentarioDTO("Muchas gracias, tambien me encantas :3")));
     }
 
     @Test
     public void listarComentariosPorEstablecimientoTest() throws Exception {
         Assertions.assertNotNull(comentarioServicio.listarComentariosPorEstablecimiento("12"));
         System.out.println(comentarioServicio.listarComentariosPorEstablecimiento("12"));
+    }
+
+    @Test
+    public void eliminarComentarioTest() throws Exception {
+        Assertions.assertNull(comentarioServicio.eliminarComentario("123"));
+    }
+
+    @Test
+    public void actualizarComentarioTest() throws Exception {
+        ComentarioDTO comentarioDTO = new ComentarioDTO(
+                "2021-10-10",
+                5,
+                "123",
+                "12",
+                "Hola, me encanta este lugar",
+                ""
+        );
+        Assertions.assertNotNull(comentarioServicio.actualizarComentario("12", comentarioDTO));
     }
 
 }

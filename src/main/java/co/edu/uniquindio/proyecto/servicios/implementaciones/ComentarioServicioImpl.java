@@ -122,7 +122,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
     }
 
     @Override
-    public void actualizarComentario(String codigo, ComentarioDTO comentarioDTO) throws Exception {
+    public String actualizarComentario(String codigo, ComentarioDTO comentarioDTO) throws Exception {
 
         if (comentarioRepo.findByCodigo(codigo).isEmpty()) {
             throw new Exception("El comentario no existe");
@@ -134,6 +134,8 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         comentario.get().setValoracion(comentarioDTO.valoracion());
         comentario.get().setResenia(comentarioDTO.resenia());
         comentarioRepo.save(comentario.get());
+
+        return "Comentario con id: " + comentario.get().getCodigo() + " actualizado";
 
     }
 
