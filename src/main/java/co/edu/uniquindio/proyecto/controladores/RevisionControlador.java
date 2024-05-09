@@ -40,7 +40,11 @@ public class RevisionControlador {
         return ResponseEntity.ok().body(revisionServicio.obtenerTodasRevisiones());
     }
 
-
-
+    @PutMapping("/actualizar-revision/{id}")
+    public ResponseEntity<MensajeDTO<String>> actualizarEstadoRevision(@PathVariable String id, @Valid @RequestBody RevisionDTO revisionDTO) throws Exception {
+        revisionServicio.cambiarEstadoRevision(id, revisionDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "revision actualizado correctamente")
+        );
+    }
 
 }
