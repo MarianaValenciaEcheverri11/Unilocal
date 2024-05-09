@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.ComentarioDTO;
 import co.edu.uniquindio.proyecto.dto.EmailDTO;
+import co.edu.uniquindio.proyecto.dto.ItemComentarioDTO;
 import co.edu.uniquindio.proyecto.dto.ResponderComentarioDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Cliente;
 import co.edu.uniquindio.proyecto.models.documentos.Comentario;
@@ -12,6 +13,7 @@ import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.ComentarioServicio;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EmailServicio;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,10 +43,12 @@ public class ComentarioServicioImpl implements ComentarioServicio {
             throw new Exception("El establecimiento no existe");
         }
 
+        System.err.println(comentarioDTO);
+
         Comentario comentario = new Comentario(
                 comentarioDTO.fecha(),
                 comentarioDTO.valoracion(),
-                comentarioDTO.codigoCliente(),
+                new ObjectId(comentarioDTO.codigoCliente()),
                 comentarioDTO.codigoEstablecimiento(),
                 comentarioDTO.resenia(),
                 comentarioDTO.respuesta());
@@ -82,7 +86,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         comentario.get().setRespuesta(responderComentarioDTO.ComentarioInsertado());
         comentarioRepo.save(comentario.get());
 
-        Optional<Cliente> cliente = clienteRepo.findByCodigo(comentario.get().getCodigoCliente());
+        Optional<Cliente> cliente = clienteRepo.findByCodigo(comentario.get().getCodigoCliente().toString());
         EmailDTO emailDTO = new EmailDTO(
                 cliente.get().getEmail(),
                 "Respuesta a su comentario",
@@ -99,15 +103,15 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         return comentario.get().getCodigo();
     }
 
-    public Optional<ArrayList<Comentario>> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception {
+    public ArrayList<ItemComentarioDTO> listarComentariosPorEstablecimiento(String idEstablecimiento) throws Exception {
 
-        Optional<ArrayList<Comentario>> comentarios = comentarioRepo.findByCodigoEstablecimiento(idEstablecimiento);
+        Optional<ArrayList<ItemComentarioDTO>> comentarios = comentarioRepo.listarComentarios(idEstablecimiento);
 
         if (comentarios.isEmpty()) {
             throw new Exception("No hay comentarios para esta publicación");
         }
 
-        return comentarioRepo.findByCodigoEstablecimiento(idEstablecimiento);
+        return comentarios.get();
     }
 
     @Override

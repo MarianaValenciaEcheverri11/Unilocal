@@ -10,7 +10,7 @@ public record ComentarioDTO(
         int valoracion,
         @NotBlank(message = "Código del cliente obligatorio") String codigoCliente,
         @NotBlank(message = "Código del establecimiento obligatorio") String codigoEstablecimiento,
-        @NotBlank(message = "Reseña obligatoria") @Length(max = 200) String resenia,
-        @Length(max = 200) String respuesta
+        @NotBlank(message = "Reseña obligatoria") @Length(max = 1000) String resenia,
+        @Length(max = 1000) String respuesta
 ) {
 }

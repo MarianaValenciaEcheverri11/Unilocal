@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.controladores;
 
 
 import co.edu.uniquindio.proyecto.dto.ComentarioDTO;
+import co.edu.uniquindio.proyecto.dto.ItemComentarioDTO;
 import co.edu.uniquindio.proyecto.dto.MensajeDTO;
 import co.edu.uniquindio.proyecto.dto.ResponderComentarioDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Comentario;
@@ -38,7 +39,7 @@ public class ComentarioController {
     }
 
     @GetMapping("/listar-comentarios-establecimiento/{idEstablecimiento}")
-    public ResponseEntity<MensajeDTO<Optional<ArrayList<Comentario>>>> listarComentariosPorEstablecimiento(@PathVariable String idEstablecimiento) throws Exception {
+    public ResponseEntity<MensajeDTO<ArrayList<ItemComentarioDTO>>> listarComentariosPorEstablecimiento(@PathVariable String idEstablecimiento) throws Exception {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.listarComentariosPorEstablecimiento(idEstablecimiento))
         );
     }

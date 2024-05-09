@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public record EstablecimientoDTO(
         ArrayList<String> imagenes,
-        @NotBlank(message = "descripcion obligatorio") @Length(max = 50) String descripcion,
+        @NotBlank(message = "descripcion obligatorio") @Length(max = 5000) String descripcion,
         @NotBlank(message = "nombre obligatorio") @Length(max = 20) String nombre,
         ArrayList<String> telefonos,
         Ubicacion ubicacion,

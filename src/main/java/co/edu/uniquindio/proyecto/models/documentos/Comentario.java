@@ -1,11 +1,11 @@
 package co.edu.uniquindio.proyecto.models.documentos;
 
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Document("comentarios")
 @Getter
@@ -21,13 +21,13 @@ public class Comentario implements Serializable {
     private String codigo;
     private String fecha;
     private int valoracion;
-    private String codigoCliente;
+    private ObjectId codigoCliente;
     private String codigoEstablecimiento;
     private String resenia;
     private String respuesta;
 
     @Builder
-    public Comentario(String fecha, int valoracion, String codigoCliente, String codigoEstablecimiento,String resenia, String respuesta) {
+    public Comentario(String fecha, int valoracion, ObjectId codigoCliente, String codigoEstablecimiento, String resenia, String respuesta) {
         this.fecha = fecha;
         this.valoracion = valoracion;
         this.codigoCliente = codigoCliente;
