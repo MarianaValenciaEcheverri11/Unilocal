@@ -20,6 +20,6 @@ public interface ComentarioRepo extends MongoRepository<Comentario, String> {
     @Aggregation({"{$match : {codigoEstablecimiento : ?0}}",
             "{$lookup:{from: 'clientes', localField: 'codigoCliente', foreignField: '_id', as: 'cliente'}}",
             "{$unwind: '$cliente'}",
-            "{$project : { codigoComentario:'$_id', nombreUsuario: '$cliente.nickName', fotoUsuario: '$cliente.foto', resenia: '$resenia', respuesta: '$respuesta', valoracion: '$valoracion'}}"})
+            "{$project : { codigoComentario:'$_id', codigoUsuario:'$cliente._id', nombreUsuario: '$cliente.nickName', fotoUsuario: '$cliente.foto', resenia: '$resenia', respuesta: '$respuesta', valoracion: '$valoracion'}}"})
     Optional<ArrayList<ItemComentarioDTO>> listarComentarios(String codigoNegocio);
 }
