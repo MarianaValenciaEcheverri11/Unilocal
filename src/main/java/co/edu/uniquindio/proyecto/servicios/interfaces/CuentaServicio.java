@@ -12,4 +12,5 @@ public interface CuentaServicio {
     String actualizarCuenta(ActualizacionCuentaDTO actualizacionCuentaDTO) throws Exception;
     String enviarLinkRecuperacionContrasena(String email) throws Exception;
     String recuperarContrasena(RecuperacionContrasenaDTO recuperacionContrasenaDTO) throws Exception;
+    TokenDTO actualizarToken(InicioSesionDTO inicioSesionDTO) throws Exception;
 }
