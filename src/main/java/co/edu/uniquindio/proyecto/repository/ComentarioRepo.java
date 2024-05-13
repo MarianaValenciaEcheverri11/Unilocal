@@ -22,4 +22,9 @@ public interface ComentarioRepo extends MongoRepository<Comentario, String> {
             "{$unwind: '$cliente'}",
             "{$project : { codigoComentario:'$_id', codigoUsuario:'$cliente._id', nombreUsuario: '$cliente.nickName', fotoUsuario: '$cliente.foto', resenia: '$resenia', respuesta: '$respuesta', valoracion: '$valoracion'}}"})
     Optional<ArrayList<ItemComentarioDTO>> listarComentarios(String codigoNegocio);
+
+    @Aggregation({"{$match : {codigoEstablecimiento : ?0}}",
+            "{$group: {_id: null, promedio: {$avg: '$valoracion'}}}", "{$project: {promedio: 1, _id: 0}}"})
+    Float obtenerPromedio(String codigoEstablecimiento);
+
 }

@@ -64,4 +64,13 @@ public class EstablecimientoControlador {
         return ResponseEntity.ok().body(establecimientoServicio.listarMejoresEstablecimientos());
     }
 
+    @GetMapping("/listar-establecimientos-por-calificacion/{pagina}")
+    public ResponseEntity<ArrayList<Establecimiento>> listarEstablecimientosPorCalificacion(@PathVariable int pagina) throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorCalificacion(pagina));
+    }
+
+    @GetMapping("/listar-establecimientos-por-cliente/{codigoCliente}")
+    public ResponseEntity<ArrayList<Establecimiento>> listarEstablecimientosPorCliente(@PathVariable String codigoCliente) throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorCliente(codigoCliente));
+    }
 }
