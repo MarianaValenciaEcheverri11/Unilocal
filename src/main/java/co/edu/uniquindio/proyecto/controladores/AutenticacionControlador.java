@@ -30,4 +30,11 @@ public class AutenticacionControlador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Cliente registrado correctamente")
         );
     }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<MensajeDTO<String>> actualizarToken(@Valid @RequestBody InicioSesionDTO loginDTO) throws Exception {
+        clienteServicio.actualizarToken(loginDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Token actualizado correctamente")
+        );
+    }
 }

@@ -259,4 +259,21 @@ public class ClienteServicioImpl implements ClienteServicio {
         clienteRepo.save(cliente);
         return cliente.getCodigo();
     }
+
+    public TokenDTO actualizarToken(InicioSesionDTO inicioSesionDTO) throws Exception {
+        Optional<Cliente> clienteOptional = clienteRepo.findByEmailAndContrasena(inicioSesionDTO.email(), inicioSesionDTO.contrasena());
+        if (clienteOptional.isEmpty()) {
+            throw new Exception("Credenciales incorrectas");
+        }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Cliente cliente = clienteOptional.get();
+        if( !passwordEncoder.matches(inicioSesionDTO.contrasena(), cliente.getContrasena()) ) {
+            throw new Exception("La contraseña es incorrecta");
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("rol", "CLIENTE");
+        map.put("nombre", cliente.getNombre());
+        map.put("id", cliente.getCodigo());
+        return new TokenDTO(jwtUtils.generarToken(cliente.getEmail(), map));
+    }
 }
