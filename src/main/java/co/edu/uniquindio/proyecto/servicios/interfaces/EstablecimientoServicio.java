@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.servicios.interfaces;
 
 import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
+import co.edu.uniquindio.proyecto.dto.RevisionEstablecimientoDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 
 import java.util.ArrayList;
@@ -18,5 +19,6 @@ public interface EstablecimientoServicio {
     Establecimiento obtenerEstablecimientoAleatorio() throws Exception;
     ArrayList<Establecimiento> listarMejoresEstablecimientos() throws Exception;
     ArrayList<Establecimiento> listarEstablecimientosPorEstadoRevision(String estado) throws Exception;
+    ArrayList<RevisionEstablecimientoDTO> listarEstablecimientosPorRevisionesCliente(String codigoCliente) throws Exception;
 
 }

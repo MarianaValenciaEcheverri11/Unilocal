@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.servicios.implementaciones;
 
 import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
+import co.edu.uniquindio.proyecto.dto.RevisionEstablecimientoDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Cliente;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.repository.ClienteRepo;
@@ -226,6 +227,12 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
             establecimiento.setPromedio(obtenerPromedio(establecimiento.getCodigo()));
         }
 
+        return establecimientos;
+    }
+
+    @Override
+    public ArrayList<RevisionEstablecimientoDTO> listarEstablecimientosPorRevisionesCliente(String codigoCliente) throws Exception {
+        ArrayList<RevisionEstablecimientoDTO> establecimientos = establecimientoRepo.findByRevisionCliente(codigoCliente).get();
         return establecimientos;
     }
 
