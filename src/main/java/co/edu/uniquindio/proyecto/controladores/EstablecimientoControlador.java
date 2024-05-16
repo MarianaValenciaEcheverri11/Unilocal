@@ -73,4 +73,9 @@ public class EstablecimientoControlador {
     public ResponseEntity<ArrayList<Establecimiento>> listarEstablecimientosPorCliente(@PathVariable String codigoCliente) throws Exception {
         return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorCliente(codigoCliente));
     }
+
+    @GetMapping("/listar-establecimientos-por-estado-revision/{estado}")
+    public ResponseEntity<ArrayList<Establecimiento>> listarEstablecimientosPorEstadoRevision(@PathVariable String estado) throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorEstadoRevision(estado));
+    }
 }

@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.dto;
 
 import co.edu.uniquindio.proyecto.models.enums.EstadoPublicacion;
 import jakarta.validation.constraints.NotBlank;
+import org.bson.types.ObjectId;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;

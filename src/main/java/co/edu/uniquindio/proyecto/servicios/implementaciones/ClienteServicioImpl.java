@@ -50,7 +50,6 @@ public class ClienteServicioImpl implements ClienteServicio {
                 .rol(Rol.USUARIO)
                 .foto(registroClienteDTO.foto())
                 .ciudad(registroClienteDTO.ciudadResidencia())
-                .codigo(registroClienteDTO.cedula())
                 .build();
 
         Cliente clienteRegistrado = clienteRepo.save(cliente);

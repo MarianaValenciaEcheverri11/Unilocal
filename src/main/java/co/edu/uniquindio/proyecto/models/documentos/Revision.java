@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.models.documentos;
 
 import co.edu.uniquindio.proyecto.models.enums.EstadoPublicacion;
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,14 +22,14 @@ public class Revision implements Serializable {
     @EqualsAndHashCode.Include
 
     private String codigo;
-    private String codigoEstablecimiento;
+    private ObjectId codigoEstablecimiento;
     private String descripcion;
     private EstadoPublicacion estado;
     private String fecha;
     private String codigoModerador;
 
     @Builder
-    public Revision(String codigo, String codigoEstablecimiento, String descripcion, EstadoPublicacion estado, String fecha, String codigoModerador) {
+    public Revision(String codigo, ObjectId codigoEstablecimiento, String descripcion, EstadoPublicacion estado, String fecha, String codigoModerador) {
         this.codigo = codigo;
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.descripcion = descripcion;

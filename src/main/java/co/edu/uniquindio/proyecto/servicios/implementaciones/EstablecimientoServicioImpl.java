@@ -79,7 +79,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     @Override
     public ArrayList<Establecimiento> listarEstablecimientos() {
 
-        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByRevisionCategoria("APROBADA").get();
 
         for (Establecimiento establecimiento : establecimientos) {
             establecimiento.setPromedio(obtenerPromedio(establecimiento.getCodigo()));
@@ -91,7 +91,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     @Override
     public ArrayList<Establecimiento> listarEstablecimientosPorCategoria(String categoria) {
 
-        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByRevisionCategoria("APROBADA").get();
 
         ArrayList<Establecimiento> establecimientosCategoria = new ArrayList<>();
 
@@ -108,7 +108,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     @Override
     public Establecimiento obtenerEstablecimientoAleatorio() throws Exception {
 
-        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByRevisionCategoria("APROBADA").get();
 
         if (establecimientos.isEmpty()) {
             throw new Exception("No hay establecimientos");
@@ -124,7 +124,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     @Override
     public ArrayList<Establecimiento> listarMejoresEstablecimientos() throws Exception {
 
-        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByRevisionCategoria("APROBADA").get();
 
         if (establecimientos.isEmpty()) {
             throw new Exception("No hay establecimientos");
@@ -169,7 +169,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
     @Override
     public ArrayList<Establecimiento> listarEstablecimientosPorCalificacion(int pagina) throws Exception {
 
-        ArrayList<Establecimiento> establecimientos = (ArrayList<Establecimiento>) establecimientoRepo.findAll();
+        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByRevisionCategoria("APROBADA").get();
 
         if (establecimientos.isEmpty()) {
             throw new Exception("No hay establecimientos");
@@ -215,6 +215,18 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
         }
 
         return establecimientosCliente;
+    }
+
+    @Override
+    public ArrayList<Establecimiento> listarEstablecimientosPorEstadoRevision(String estado) throws Exception {
+
+        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByRevisionCategoria(estado).get();
+
+        for (Establecimiento establecimiento : establecimientos) {
+            establecimiento.setPromedio(obtenerPromedio(establecimiento.getCodigo()));
+        }
+
+        return establecimientos;
     }
 
     public Float obtenerPromedio(String codigoEstablecimiento) {

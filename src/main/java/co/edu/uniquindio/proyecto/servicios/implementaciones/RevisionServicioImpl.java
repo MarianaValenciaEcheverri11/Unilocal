@@ -12,6 +12,7 @@ import co.edu.uniquindio.proyecto.repository.RevisionRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.proyecto.servicios.interfaces.RevisionServicio;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,7 @@ public class RevisionServicioImpl implements RevisionServicio {
         }
 
         Revision revision = Revision.builder().
-                codigoEstablecimiento(revisionDTO.codigoEstablecimiento()).
+                codigoEstablecimiento(new ObjectId(revisionDTO.codigoEstablecimiento())).
                 descripcion(revisionDTO.descripcion()).
                 estado(revisionDTO.estado()).
                 fecha(revisionDTO.fecha()).
@@ -61,7 +62,7 @@ public class RevisionServicioImpl implements RevisionServicio {
         System.err.println(revision.get());
 
         return new RevisionDTO(
-                revision.get().getCodigoEstablecimiento(),
+                String.valueOf(revision.get().getCodigoEstablecimiento()),
                 revision.get().getDescripcion(),
                 revision.get().getEstado(),
                 revision.get().getFecha(),
@@ -92,7 +93,7 @@ public class RevisionServicioImpl implements RevisionServicio {
         revision.get().setEstado(revisionDTO.estado());
         revisionRepo.save(revision.get());
 
-        Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(revisionDTO.codigoEstablecimiento());
+        Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(String.valueOf(revisionDTO.codigoEstablecimiento()));
         Optional<Cliente> cliente = clienteRepo.findByCodigo(establecimiento.get().getCodigoUsuario());
 
 
@@ -109,7 +110,7 @@ public class RevisionServicioImpl implements RevisionServicio {
 
 
         return new RevisionDTO(
-                revision.get().getCodigoEstablecimiento(),
+                String.valueOf(revision.get().getCodigoEstablecimiento()),
                 revision.get().getDescripcion(),
                 revision.get().getEstado(),
                 revision.get().getFecha(),
