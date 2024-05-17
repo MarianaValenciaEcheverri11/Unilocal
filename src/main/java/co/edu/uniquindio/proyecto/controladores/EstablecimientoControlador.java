@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.controladores;
 
 import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
 import co.edu.uniquindio.proyecto.dto.MensajeDTO;
+import co.edu.uniquindio.proyecto.dto.RevisionEstablecimientoDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
 import jakarta.validation.Valid;
@@ -77,5 +78,10 @@ public class EstablecimientoControlador {
     @GetMapping("/listar-establecimientos-por-estado-revision/{estado}")
     public ResponseEntity<ArrayList<Establecimiento>> listarEstablecimientosPorEstadoRevision(@PathVariable String estado) throws Exception {
         return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorEstadoRevision(estado));
+    }
+
+    @GetMapping("/listar-establecimientos-por-revisiones-cliente/{codigoCliente}")
+    public ResponseEntity<ArrayList<RevisionEstablecimientoDTO>> listarEstablecimientosPorRevisionesCliente(@PathVariable String codigoCliente) throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorRevisionesCliente(codigoCliente));
     }
 }
