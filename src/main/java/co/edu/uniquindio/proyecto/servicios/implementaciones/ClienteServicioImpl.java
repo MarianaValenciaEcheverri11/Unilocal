@@ -240,8 +240,11 @@ public class ClienteServicioImpl implements ClienteServicio {
 
         EmailDTO emailDTO = new EmailDTO(
                 email,
-                "Cambo de contraseña - unilocal",
-                "para cambiar la contraseña acceda al siguiente link: http://localhost:8080/cambiarContrasena?email="+email
+                "Cambio de contraseña - unilocal",
+                "¡Hola! " +  "\n" +
+                "Parece que has olvidado tu contraseña de Unilocal. No te preocupes, ¡te podemos ayudar a recuperarla en un abrir y cerrar de ojos!\n" +
+                        "\n" +
+                        "Para cambiar la contraseña acceda al siguiente link: http://localhost:4200/cambiar-contrasena?email="+email
         );
         emailServicio.enviarEmail(emailDTO);
         return null;
@@ -253,8 +256,10 @@ public class ClienteServicioImpl implements ClienteServicio {
         if (clienteOptional.isEmpty()) {
             throw new Exception("El cliente no existe");
         }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordEncriptada = passwordEncoder.encode(recuperacionContrasenaDTO.contrasenaNueva());
         Cliente cliente = clienteOptional.get();
-        cliente.setContrasena(recuperacionContrasenaDTO.contrasenaNueva());
+        cliente.setContrasena(passwordEncriptada);
         clienteRepo.save(cliente);
         return cliente.getCodigo();
     }
