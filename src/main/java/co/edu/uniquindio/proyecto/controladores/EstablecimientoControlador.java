@@ -80,6 +80,11 @@ public class EstablecimientoControlador {
         return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorEstadoRevision(estado));
     }
 
+    @GetMapping("/listar-establecimientos-por-codigo/{codigo}")
+    public ResponseEntity<Establecimiento> listarEstablecimientosPorCodigo(@PathVariable String codigo) throws Exception {
+        return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorCodigo(codigo));
+    }
+
     @GetMapping("/listar-establecimientos-por-revisiones-cliente/{codigoCliente}")
     public ResponseEntity<ArrayList<RevisionEstablecimientoDTO>> listarEstablecimientosPorRevisionesCliente(@PathVariable String codigoCliente) throws Exception {
         return ResponseEntity.ok().body(establecimientoServicio.listarEstablecimientosPorRevisionesCliente(codigoCliente));

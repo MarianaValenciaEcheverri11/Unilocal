@@ -41,7 +41,7 @@ public class AutenticacionControlador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Correo enviado correctamente") );
     }
 
-    @PutMapping("/recuperar-contrasena")
+    @PostMapping("/recuperar-contrasena")
     public ResponseEntity<MensajeDTO<String>> recuperarContrasena(@Valid @RequestBody RecuperacionContrasenaDTO recuperacionContrasenaDTO)throws Exception{
         clienteServicio.recuperarContrasena(recuperacionContrasenaDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Contraseña actualizada correctamente") );

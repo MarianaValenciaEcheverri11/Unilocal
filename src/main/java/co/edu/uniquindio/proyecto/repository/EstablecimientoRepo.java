@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -30,5 +31,12 @@ public interface EstablecimientoRepo extends MongoRepository<Establecimiento, St
             "{ $project: { codigoUsuario: '$codigoUsuario', nombre: '$nombre', descripcion: '$descripcion', imagenes: '$imagenes', estado: '$revisiones_establecimiento.estado' } }"
     })
     Optional<ArrayList<RevisionEstablecimientoDTO>> findByRevisionCliente(String codigoCliente);
+
+    @Aggregation(pipeline = {
+            "{ $lookup: { from: 'revisiones', localField: '_id', foreignField: 'codigoEstablecimiento', as: 'revisiones_establecimiento' } }",
+            "{ $unwind: '$revisiones_establecimiento' }",
+            "{ $match: { 'revisiones_establecimiento.estado': ?0 } }"
+    })
+    Optional<ArrayList<Establecimiento>> findByEstadoRevision(String estado);
 
 }

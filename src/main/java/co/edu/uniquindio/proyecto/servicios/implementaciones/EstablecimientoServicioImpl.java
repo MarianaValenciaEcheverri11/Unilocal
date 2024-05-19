@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -104,6 +103,12 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
         }
 
         return establecimientosCategoria;
+    }
+
+    @Override
+    public Establecimiento listarEstablecimientosPorCodigo(String codigo) throws Exception {
+        Establecimiento establecimientos = establecimientoRepo.findByCodigo(codigo).get();
+        return establecimientos;
     }
 
     @Override
@@ -220,13 +225,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
 
     @Override
     public ArrayList<Establecimiento> listarEstablecimientosPorEstadoRevision(String estado) throws Exception {
-
-        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByRevisionCategoria(estado).get();
-
-        for (Establecimiento establecimiento : establecimientos) {
-            establecimiento.setPromedio(obtenerPromedio(establecimiento.getCodigo()));
-        }
-
+        ArrayList<Establecimiento> establecimientos = establecimientoRepo.findByEstadoRevision(estado).get();
         return establecimientos;
     }
 

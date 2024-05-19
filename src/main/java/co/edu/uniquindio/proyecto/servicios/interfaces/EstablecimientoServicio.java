@@ -15,6 +15,7 @@ public interface EstablecimientoServicio {
     String eliminarEstablecimiento(String codigoEstablecimiento) throws Exception;
     ArrayList<Establecimiento> listarEstablecimientos() throws Exception;
     ArrayList<Establecimiento> listarEstablecimientosPorCategoria(String categoria) throws Exception;
+    Establecimiento listarEstablecimientosPorCodigo(String codigo) throws Exception;
     ArrayList<Establecimiento> listarEstablecimientosPorCliente(String codigoCliente) throws Exception;
     Establecimiento obtenerEstablecimientoAleatorio() throws Exception;
     ArrayList<Establecimiento> listarMejoresEstablecimientos() throws Exception;
