@@ -244,7 +244,7 @@ public class ClienteServicioImpl implements ClienteServicio {
                 "¡Hola! " +  "\n" +
                 "Parece que has olvidado tu contraseña de Unilocal. No te preocupes, ¡te podemos ayudar a recuperarla en un abrir y cerrar de ojos!\n" +
                         "\n" +
-                        "Para cambiar la contraseña acceda al siguiente link: http://localhost:4200/cambiar-contrasena?email="+email
+                        "Para cambiar la contraseña acceda al siguiente link: http://localhost:4200/cambiar-contrasena/"+email
         );
         emailServicio.enviarEmail(emailDTO);
         return null;
@@ -252,7 +252,7 @@ public class ClienteServicioImpl implements ClienteServicio {
 
     @Override
     public String recuperarContrasena(RecuperacionContrasenaDTO recuperacionContrasenaDTO) throws Exception {
-        Optional<Cliente> clienteOptional = clienteRepo.findByEmail(recuperacionContrasenaDTO.codigoCliente());
+        Optional<Cliente> clienteOptional = clienteRepo.findByEmail(recuperacionContrasenaDTO.email());
         if (clienteOptional.isEmpty()) {
             throw new Exception("El cliente no existe");
         }

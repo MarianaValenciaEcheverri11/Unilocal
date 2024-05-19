@@ -46,5 +46,4 @@ public class AutenticacionControlador {
         clienteServicio.recuperarContrasena(recuperacionContrasenaDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Contraseña actualizada correctamente") );
     }
-
 }
