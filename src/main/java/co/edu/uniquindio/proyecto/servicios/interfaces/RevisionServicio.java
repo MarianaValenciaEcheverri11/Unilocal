@@ -12,5 +12,8 @@ public interface RevisionServicio {
     String enviarRevision(RevisionDTO revisionDTO) throws Exception;
     RevisionDTO consultarRevisiones(String codigo) throws Exception;
     ArrayList<Revision> obtenerTodasRevisiones() throws Exception;
+
+    ArrayList<RevisionDTO> obtenerTodasRevisionesPorCodigoEstablecimiento(String codigoEstablecimiento) throws Exception;
+
     RevisionDTO cambiarEstadoRevision(String codigo, RevisionDTO revisionDTO) throws Exception;
 }

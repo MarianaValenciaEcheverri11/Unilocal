@@ -5,7 +5,6 @@ import co.edu.uniquindio.proyecto.dto.RevisionDTO;
 import co.edu.uniquindio.proyecto.models.documentos.Cliente;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.models.documentos.Revision;
-import co.edu.uniquindio.proyecto.models.enums.EstadoPublicacion;
 import co.edu.uniquindio.proyecto.repository.ClienteRepo;
 import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
 import co.edu.uniquindio.proyecto.repository.RevisionRepo;
@@ -37,7 +36,7 @@ public class RevisionServicioImpl implements RevisionServicio {
         }
 
         Revision revision = Revision.builder().
-                codigoEstablecimiento(new ObjectId(revisionDTO.codigoEstablecimiento())).
+                codigoEstablecimiento(revisionDTO.codigoEstablecimiento()).
                 descripcion(revisionDTO.descripcion()).
                 estado(revisionDTO.estado()).
                 fecha(revisionDTO.fecha()).
@@ -62,7 +61,7 @@ public class RevisionServicioImpl implements RevisionServicio {
         System.err.println(revision.get());
 
         return new RevisionDTO(
-                String.valueOf(revision.get().getCodigoEstablecimiento()),
+                revision.get().getCodigoEstablecimiento(),
                 revision.get().getDescripcion(),
                 revision.get().getEstado(),
                 revision.get().getFecha(),
@@ -74,6 +73,12 @@ public class RevisionServicioImpl implements RevisionServicio {
     public ArrayList<Revision> obtenerTodasRevisiones() throws Exception {
         System.err.println(revisionRepo.findAll());
         return (ArrayList<Revision>) revisionRepo.findAll();
+    }
+
+    @Override
+    public ArrayList<RevisionDTO> obtenerTodasRevisionesPorCodigoEstablecimiento(String codigoEstablecimiento) throws Exception {
+        System.err.println(revisionRepo.findAll());
+        return revisionRepo.findByCodigoEstablecimiento(codigoEstablecimiento).get();
     }
 
     @Override
@@ -110,7 +115,7 @@ public class RevisionServicioImpl implements RevisionServicio {
 
 
         return new RevisionDTO(
-                String.valueOf(revision.get().getCodigoEstablecimiento()),
+                revision.get().getCodigoEstablecimiento(),
                 revision.get().getDescripcion(),
                 revision.get().getEstado(),
                 revision.get().getFecha(),

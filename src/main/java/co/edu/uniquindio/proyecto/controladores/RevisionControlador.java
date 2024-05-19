@@ -47,4 +47,8 @@ public class RevisionControlador {
         );
     }
 
+    @GetMapping("/listar-revisiones-codigo-establecimiento/{codigoEstablecimiento}")
+    public ResponseEntity<ArrayList<RevisionDTO>> listarRevision(@PathVariable String codigoEstablecimiento) throws Exception {
+        return ResponseEntity.ok().body(revisionServicio.obtenerTodasRevisionesPorCodigoEstablecimiento(codigoEstablecimiento));
+    }
 }
