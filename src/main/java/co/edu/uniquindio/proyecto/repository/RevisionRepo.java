@@ -18,5 +18,5 @@ public interface RevisionRepo extends MongoRepository<Revision, String> {
     Optional<Revision> deleteByCodigo(String codigo);
 
     @Query("{ 'codigoEstablecimiento' : ?0 }")
-    Optional<ArrayList<RevisionDTO>>findByCodigoEstablecimiento(String codigoEstablecimiento);
+    Optional<Revision>findByCodigoEstablecimiento(String codigoEstablecimiento);
 }

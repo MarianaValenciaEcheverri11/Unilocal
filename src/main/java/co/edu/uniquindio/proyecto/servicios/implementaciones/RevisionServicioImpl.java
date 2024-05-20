@@ -11,7 +11,6 @@ import co.edu.uniquindio.proyecto.repository.RevisionRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.proyecto.servicios.interfaces.RevisionServicio;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,8 +74,7 @@ public class RevisionServicioImpl implements RevisionServicio {
         return (ArrayList<Revision>) revisionRepo.findAll();
     }
 
-    @Override
-    public ArrayList<RevisionDTO> obtenerTodasRevisionesPorCodigoEstablecimiento(String codigoEstablecimiento) throws Exception {
+    public Revision obtenerRevisionPorCodigoEstablecimiento(String codigoEstablecimiento) throws Exception {
         System.err.println(revisionRepo.findAll());
         return revisionRepo.findByCodigoEstablecimiento(codigoEstablecimiento).get();
     }
@@ -90,18 +88,19 @@ public class RevisionServicioImpl implements RevisionServicio {
         if (revisionDTO == null) {
             throw new Exception("La revision no puede ser nula");
         }
-        Optional<Revision> revision = revisionRepo.findByCodigo(codigo);
+        Optional<Revision> revision = revisionRepo.findByCodigoEstablecimiento(codigo);
 
         if (revision.isEmpty()) {
             throw new Exception("La revision no existe");
         }
         revision.get().setEstado(revisionDTO.estado());
+        revision.get().setFecha(revisionDTO.fecha());
+        revision.get().setDescripcion(revisionDTO.descripcion());
+        revision.get().setCodigoModerador(revisionDTO.codigoModerador());
         revisionRepo.save(revision.get());
 
         Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(String.valueOf(revisionDTO.codigoEstablecimiento()));
         Optional<Cliente> cliente = clienteRepo.findByCodigo(establecimiento.get().getCodigoUsuario());
-
-
         EmailDTO emailDTO = new EmailDTO(
                 cliente.get().getEmail(),
                 "Cambio de estado de su revision",
@@ -123,6 +122,5 @@ public class RevisionServicioImpl implements RevisionServicio {
         );
 
     }
-
 
 }

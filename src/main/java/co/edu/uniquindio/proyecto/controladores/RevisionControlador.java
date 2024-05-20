@@ -43,12 +43,12 @@ public class RevisionControlador {
     @PutMapping("/actualizar-revision/{id}")
     public ResponseEntity<MensajeDTO<String>> actualizarEstadoRevision(@PathVariable String id, @Valid @RequestBody RevisionDTO revisionDTO) throws Exception {
         revisionServicio.cambiarEstadoRevision(id, revisionDTO);
-        return ResponseEntity.ok().body( new MensajeDTO<>(false, "revision actualizado correctamente")
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "revision actualizada correctamente")
         );
     }
 
     @GetMapping("/listar-revisiones-codigo-establecimiento/{codigoEstablecimiento}")
-    public ResponseEntity<ArrayList<RevisionDTO>> listarRevision(@PathVariable String codigoEstablecimiento) throws Exception {
-        return ResponseEntity.ok().body(revisionServicio.obtenerTodasRevisionesPorCodigoEstablecimiento(codigoEstablecimiento));
+    public ResponseEntity<Revision> listarRevision(@PathVariable String codigoEstablecimiento) throws Exception {
+        return ResponseEntity.ok().body(revisionServicio.obtenerRevisionPorCodigoEstablecimiento(codigoEstablecimiento));
     }
 }
