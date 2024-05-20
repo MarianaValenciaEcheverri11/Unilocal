@@ -9,6 +9,7 @@ import co.edu.uniquindio.proyecto.repository.ComentarioRepo;
 import co.edu.uniquindio.proyecto.repository.EstablecimientoRepo;
 import co.edu.uniquindio.proyecto.servicios.interfaces.EstablecimientoServicio;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
                 .telefonos(establecimientoDTO.telefonos())
                 .ubicacion(establecimientoDTO.ubicacion())
                 .horarios(establecimientoDTO.horarios())
-                .codigoUsuario(establecimientoDTO.codigoUsuario())
+                .codigoUsuario(new ObjectId(establecimientoDTO.codigoUsuario()))
                 .categoria(establecimientoDTO.categoria())
                 .build();
 
@@ -164,7 +165,7 @@ public class EstablecimientoServicioImpl implements EstablecimientoServicio {
         establecimiento.get().setTelefonos(establecimientoDTO.telefonos());
         establecimiento.get().setUbicacion(establecimientoDTO.ubicacion());
         establecimiento.get().setHorarios(establecimientoDTO.horarios());
-        establecimiento.get().setCodigoUsuario(establecimientoDTO.codigoUsuario());
+        establecimiento.get().setCodigoUsuario(new ObjectId(establecimientoDTO.codigoUsuario()));
         establecimiento.get().setCategoria(establecimientoDTO.categoria());
 
         establecimientoRepo.save(establecimiento.get());

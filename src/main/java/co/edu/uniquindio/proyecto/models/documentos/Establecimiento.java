@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.models.documentos;
 import co.edu.uniquindio.proyecto.models.entidades.Horario;
 import co.edu.uniquindio.proyecto.models.entidades.Ubicacion;
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,12 +28,12 @@ public class Establecimiento implements Serializable {
     private ArrayList<String> telefonos;
     private Ubicacion ubicacion;
     private ArrayList<Horario> horarios;
-    private String codigoUsuario;
+    private ObjectId codigoUsuario;
     private float promedio;
     private String categoria;
 
     @Builder
-    public Establecimiento(String codigo, ArrayList<String> imagenes, String descripcion, String nombre, ArrayList<String> telefonos, Ubicacion ubicacion, ArrayList<Horario> horarios, String codigoUsuario, float promedio, String categoria) {
+    public Establecimiento(String codigo, ArrayList<String> imagenes, String descripcion, String nombre, ArrayList<String> telefonos, Ubicacion ubicacion, ArrayList<Horario> horarios, ObjectId codigoUsuario, float promedio, String categoria) {
         this.codigo = codigo;
         this.imagenes = imagenes;
         this.descripcion = descripcion;

@@ -121,7 +121,7 @@ public class RevisionServicioImpl implements RevisionServicio {
         revisionRepo.save(revision.get());
 
         Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(String.valueOf(actualizarEstadoRevisionDTO.codigoEstablecimiento()));
-        Optional<Cliente> cliente = clienteRepo.findByCodigo(establecimiento.get().getCodigoUsuario());
+        Optional<Cliente> cliente = clienteRepo.findByCodigo(String.valueOf(establecimiento.get().getCodigoUsuario()));
         EmailDTO emailDTO = new EmailDTO(
                 cliente.get().getEmail(),
                 "Cambio de estado de su revision",

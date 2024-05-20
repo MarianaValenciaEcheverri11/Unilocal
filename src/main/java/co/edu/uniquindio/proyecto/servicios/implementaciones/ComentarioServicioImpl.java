@@ -55,7 +55,7 @@ public class ComentarioServicioImpl implements ComentarioServicio {
         comentarioRepo.save(comentario);
 
         Optional<Establecimiento> establecimiento = establecimientoRepo.findByCodigo(comentarioDTO.codigoEstablecimiento());
-        Optional<Cliente> cliente = clienteRepo.findByCodigo(establecimiento.get().getCodigoUsuario());
+        Optional<Cliente> cliente = clienteRepo.findByCodigo(String.valueOf(comentarioDTO.codigoCliente()));
 
         EmailDTO emailDTO = new EmailDTO(
                 cliente.get().getEmail(),
