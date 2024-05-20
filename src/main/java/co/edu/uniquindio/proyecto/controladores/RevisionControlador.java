@@ -1,10 +1,7 @@
 package co.edu.uniquindio.proyecto.controladores;
 
 
-import co.edu.uniquindio.proyecto.dto.EstablecimientoDTO;
-import co.edu.uniquindio.proyecto.dto.ItemClienteDTO;
-import co.edu.uniquindio.proyecto.dto.MensajeDTO;
-import co.edu.uniquindio.proyecto.dto.RevisionDTO;
+import co.edu.uniquindio.proyecto.dto.*;
 import co.edu.uniquindio.proyecto.models.documentos.Establecimiento;
 import co.edu.uniquindio.proyecto.models.documentos.Revision;
 import co.edu.uniquindio.proyecto.servicios.interfaces.RevisionServicio;
@@ -31,7 +28,7 @@ public class RevisionControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RevisionDTO> obtenerRevision(@PathVariable String id) throws Exception {
+    public ResponseEntity<ItemRevisionDTO> obtenerRevision(@PathVariable String id) throws Exception {
         return ResponseEntity.ok().body(revisionServicio.consultarRevisiones(id));
     }
 
@@ -41,14 +38,14 @@ public class RevisionControlador {
     }
 
     @PutMapping("/actualizar-revision/{id}")
-    public ResponseEntity<MensajeDTO<String>> actualizarEstadoRevision(@PathVariable String id, @Valid @RequestBody RevisionDTO revisionDTO) throws Exception {
-        revisionServicio.cambiarEstadoRevision(id, revisionDTO);
+    public ResponseEntity<MensajeDTO<String>> actualizarEstadoRevision(@PathVariable String id, @Valid @RequestBody ActualizarEstadoRevisionDTO actualizarEstadoRevisionDTO) throws Exception {
+        revisionServicio.cambiarEstadoRevision(id, actualizarEstadoRevisionDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "revision actualizada correctamente")
         );
     }
 
     @GetMapping("/listar-revisiones-codigo-establecimiento/{codigoEstablecimiento}")
-    public ResponseEntity<Revision> listarRevision(@PathVariable String codigoEstablecimiento) throws Exception {
+    public ResponseEntity<ItemRevisionDTO> listarRevision(@PathVariable String codigoEstablecimiento) throws Exception {
         return ResponseEntity.ok().body(revisionServicio.obtenerRevisionPorCodigoEstablecimiento(codigoEstablecimiento));
     }
 }
