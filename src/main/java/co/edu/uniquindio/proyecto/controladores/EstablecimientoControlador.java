@@ -21,9 +21,7 @@ public class EstablecimientoControlador {
 
     @PostMapping("/registrar-establecimiento")
     public ResponseEntity<MensajeDTO<String>> crearEstablecimiento(@Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {
-        establecimientoServicio.crearEstablecimiento(establecimientoDTO);
-        return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento creado correctamente")
-        );
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, establecimientoServicio.crearEstablecimiento(establecimientoDTO)));
     }
 
     @GetMapping("/{id}")
@@ -34,14 +32,14 @@ public class EstablecimientoControlador {
     @DeleteMapping("/{id}")
     public ResponseEntity<MensajeDTO<String>> eliminarEstablecimiento(@PathVariable String id) throws Exception {
         establecimientoServicio.eliminarEstablecimiento(id);
-        return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento eliminado correctamente")
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "establecimiento eliminado correctamente")
         );
     }
 
     @PutMapping("/actualizar-establecimiento/{id}")
     public ResponseEntity<MensajeDTO<String>> actualizarEstablecimiento(@PathVariable String id, @Valid @RequestBody EstablecimientoDTO establecimientoDTO) throws Exception {
         establecimientoServicio.actualizarEstablecimiento(id, establecimientoDTO);
-        return ResponseEntity.ok().body( new MensajeDTO<>(false, "establecimiento actualizado correctamente")
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "establecimiento actualizado correctamente")
         );
     }
 
