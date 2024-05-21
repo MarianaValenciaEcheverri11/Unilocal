@@ -36,7 +36,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
             throw new Exception("La contraseña es incorrecta");
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("rol", "CLIENTE");
+        map.put("rol", cliente.getRol());
         map.put("nombre", cliente.getNombre());
         map.put("id", cliente.getCodigo());
         return new TokenDTO( jwtUtils.generarToken(cliente.getEmail(), map) );
