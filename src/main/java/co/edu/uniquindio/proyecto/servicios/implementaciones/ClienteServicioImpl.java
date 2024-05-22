@@ -30,7 +30,7 @@ public class ClienteServicioImpl implements ClienteServicio {
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {
 
-        if(existeUsuario(registroClienteDTO.nickname())){
+        if(existeUsuario(registroClienteDTO.nickName())){
             throw new Exception("El cliente ya está registado");
         }
 
@@ -45,7 +45,7 @@ public class ClienteServicioImpl implements ClienteServicio {
                 .nombre(registroClienteDTO.nombre())
                 .email(registroClienteDTO.email())
                 .contrasena(passwordEncriptada)
-                .nickName(registroClienteDTO.nickname())
+                .nickName(registroClienteDTO.nickName())
                 .estado(EstadoCuenta.ACTIVA)
                 .rol(Rol.USUARIO)
                 .foto(registroClienteDTO.foto())
@@ -244,7 +244,7 @@ public class ClienteServicioImpl implements ClienteServicio {
                 "¡Hola! " +  "\n" +
                 "Parece que has olvidado tu contraseña de Unilocal. No te preocupes, ¡te podemos ayudar a recuperarla en un abrir y cerrar de ojos!\n" +
                         "\n" +
-                        "Para cambiar la contraseña acceda al siguiente link: http://localhost:4200/cambiar-contrasena/"+email
+                        "Para cambiar la contraseña acceda al siguiente link: https://unilocal-dn9m.onrender.com/cambiar-contrasena/"+email
         );
         emailServicio.enviarEmail(emailDTO);
         return null;
