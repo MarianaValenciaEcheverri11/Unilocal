@@ -244,7 +244,7 @@ public class ClienteServicioImpl implements ClienteServicio {
                 "¡Hola! " +  "\n" +
                 "Parece que has olvidado tu contraseña de Unilocal. No te preocupes, ¡te podemos ayudar a recuperarla en un abrir y cerrar de ojos!\n" +
                         "\n" +
-                        "Para cambiar la contraseña acceda al siguiente link: https://unilocal-dn9m.onrender.com/cambiar-contrasena/"+email
+                        "Para cambiar la contraseña acceda al siguiente link: https://app-frontend-proyecto-uq-cec5e.web.app/cambiar-contrasena/"+email
         );
         emailServicio.enviarEmail(emailDTO);
         return null;
