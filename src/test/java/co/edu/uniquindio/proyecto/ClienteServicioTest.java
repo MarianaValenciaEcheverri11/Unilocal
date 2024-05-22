@@ -28,7 +28,6 @@ public class ClienteServicioTest {
                 "david11111@gmail.com",
                 "david111111",
                 "1234",
-                "Armenia",
                 "Armenia"
                 );
 
